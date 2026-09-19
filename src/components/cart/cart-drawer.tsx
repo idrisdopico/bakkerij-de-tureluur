@@ -7,6 +7,7 @@ import { useBodyScrollLock } from '@/hooks/use-body-scroll-lock';
 import { useEscapeKey } from '@/hooks/use-escape-key';
 import { useFocusTrap } from '@/hooks/use-focus-trap';
 
+import { IconButton } from '../icon-button';
 import { useCart } from './cart-context';
 import styles from './cart-drawer.module.scss';
 import { CheckoutForm } from './checkout-form';
@@ -55,13 +56,13 @@ export function CartDrawer({
         tabIndex={-1}>
         <div className={styles.header}>
           <h2 className={styles.title}>Winkelmandje</h2>
-          <button
-            type="button"
-            className={styles.close}
+          <IconButton
+            variant="ghost"
+            size={40}
             onClick={close}
             aria-label="Winkelmandje sluiten">
             <X aria-hidden="true" size={24} strokeWidth={1.5} />
-          </button>
+          </IconButton>
         </div>
 
         <div className={styles.content}>
@@ -79,35 +80,35 @@ export function CartDrawer({
                       )}
                     </div>
                     <div className={styles.quantity}>
-                      <button
-                        type="button"
-                        className={styles.step}
+                      <IconButton
+                        variant="outline"
+                        size={32}
                         onClick={() =>
                           setQuantity(item.productId, item.quantity - 1)
                         }
                         aria-label={`Eén minder ${item.naam}`}>
                         <Minus aria-hidden="true" size={16} strokeWidth={2} />
-                      </button>
+                      </IconButton>
                       <span className={styles.count} aria-live="polite">
                         {item.quantity}
                       </span>
-                      <button
-                        type="button"
-                        className={styles.step}
+                      <IconButton
+                        variant="outline"
+                        size={32}
                         onClick={() =>
                           setQuantity(item.productId, item.quantity + 1)
                         }
                         aria-label={`Eén meer ${item.naam}`}>
                         <Plus aria-hidden="true" size={16} strokeWidth={2} />
-                      </button>
+                      </IconButton>
                     </div>
-                    <button
-                      type="button"
-                      className={styles.remove}
+                    <IconButton
+                      variant="ghost"
+                      size={36}
                       onClick={() => remove(item.productId)}
                       aria-label={`${item.naam} verwijderen`}>
                       <Trash2 aria-hidden="true" size={18} strokeWidth={1.5} />
-                    </button>
+                    </IconButton>
                   </li>
                 ))}
               </ul>

@@ -2,6 +2,7 @@
 
 import { ShoppingBasket } from 'lucide-react';
 
+import { IconButton } from '../icon-button';
 import styles from './cart-button.module.scss';
 import { useCart } from './cart-context';
 
@@ -19,9 +20,9 @@ export function CartButton() {
   }
 
   return (
-    <button
-      type="button"
-      className={styles.button}
+    <IconButton
+      variant="ghost"
+      size={44}
       onClick={open}
       aria-label={
         showBadge
@@ -36,6 +37,6 @@ export function CartButton() {
           {itemCount}
         </span>
       )}
-    </button>
+    </IconButton>
   );
 }
