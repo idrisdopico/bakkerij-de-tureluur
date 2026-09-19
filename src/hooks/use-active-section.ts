@@ -113,15 +113,29 @@ export function useActiveSection({
 
     // Reaching the bottom doesn't always change which sections intersect the
     // band, so the observer alone can miss it — re-evaluate on scroll/resize
-    // too. `setActiveId` bails out when the value is unchanged, so the extra
-    // calls are cheap.
-    window.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', update);
+    // too. `update` reads layout (scrollHeight/getBoundingClientRect), so
+    // coalesce those events to one call per animation frame to avoid layout
+    // thrash on rapid scrolling. `setActiveId` also bails when unchanged.
+    let frame = 0;
+    const scheduleUpdate = () => {
+      if (frame) {
+        return;
+      }
+      frame = requestAnimationFrame(() => {
+        frame = 0;
+        update();
+      });
+    };
+    window.addEventListener('scroll', scheduleUpdate, { passive: true });
+    window.addEventListener('resize', scheduleUpdate);
 
     return () => {
       observer.disconnect();
-      window.removeEventListener('scroll', update);
-      window.removeEventListener('resize', update);
+      window.removeEventListener('scroll', scheduleUpdate);
+      window.removeEventListener('resize', scheduleUpdate);
+      if (frame) {
+        cancelAnimationFrame(frame);
+      }
     };
   }, [ids, topOffset]);
 

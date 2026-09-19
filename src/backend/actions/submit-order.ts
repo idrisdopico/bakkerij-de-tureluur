@@ -37,6 +37,26 @@ const singleLine = (value: string) => value.replace(/[\r\n]+/g, ' ').trim();
 export async function submitOrder(
   input: SubmitOrderInput,
 ): Promise<SubmitOrderResult> {
+  // This is a public server action — the argument's TypeScript type is only a
+  // hint, not a runtime guarantee. Re-validate the payload shape before
+  // touching any field, so a malformed/tampered request fails closed into a
+  // friendly result instead of throwing a raw 500 on `.trim()` of a non-string.
+  const raw = input as unknown as Partial<
+    Record<keyof SubmitOrderInput, unknown>
+  >;
+  if (
+    typeof raw.name !== 'string' ||
+    typeof raw.email !== 'string' ||
+    typeof raw.phone !== 'string' ||
+    typeof raw.pickupDay !== 'string' ||
+    typeof raw.notes !== 'string' ||
+    typeof raw.turnstileToken !== 'string' ||
+    typeof raw.honeypot !== 'string' ||
+    !Array.isArray(raw.items)
+  ) {
+    return { ok: false, error: GENERIC_ERROR };
+  }
+
   // Honeypot: a hidden field no real user ever fills.
   if (input.honeypot.trim() !== '') {
     return { ok: false, error: GENERIC_ERROR };
@@ -153,6 +173,21 @@ export async function submitOrder(
 
   const to = process.env.ORDER_TO_EMAIL || process.env.SMTP_USER;
   if (!to) {
+    return { ok: false, error: GENERIC_ERROR };
+  }
+
+  // In production, refuse to report success when no real mail transport is
+  // configured. Without SMTP credentials Payload's adapter is unset and it
+  // only logs the email to the console (fine for local dev) — but then the
+  // customer would see "sent" while the bakery never receives the order. Fail
+  // loudly instead of losing the order silently.
+  const isSmtpConfigured = Boolean(
+    process.env.SMTP_USER && process.env.SMTP_PASS,
+  );
+  if (process.env.NODE_ENV === 'production' && !isSmtpConfigured) {
+    console.error(
+      '[order] SMTP is not configured in production — order email was not sent.',
+    );
     return { ok: false, error: GENERIC_ERROR };
   }
 

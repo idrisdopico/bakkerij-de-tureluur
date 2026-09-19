@@ -10,7 +10,7 @@ import {
   useState,
 } from 'react';
 
-const STORAGE_KEY = 'bdt-cart';
+const STORAGE_KEY = 'bakkerij-de-tureluur-cart';
 // Stored carts older than this are discarded on load, so a stale basket from
 // a week ago doesn't resurface as if it were current.
 const MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000;
