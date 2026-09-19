@@ -1,29 +1,6 @@
-.root {
-  position: fixed;
-  inset: 0;
-  z-index: 1100;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--space-4);
-  pointer-events: none;
-}
-
-.backdrop {
-  position: absolute;
-  inset: 0;
-  appearance: none;
-  border: none;
-  padding: 0;
-  margin: 0;
-  cursor: pointer;
-  background: rgba(43, 44, 36, 0.45);
-  opacity: 0;
-  transition: opacity 0.2s ease;
-}
-
+// The overlay shell (fixed root, backdrop, centering, transition) lives in the
+// shared Dialog; this only sizes and lays out the panel's content.
 .dialog {
-  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -31,31 +8,6 @@
   gap: var(--space-3);
   width: min(440px, 100%);
   padding: var(--space-6);
-  border-radius: var(--radius-lg);
-  background: var(--surface-page);
-  box-shadow: var(--shadow-lg);
-  transform: translateY(8px);
-  opacity: 0;
-  transition:
-    transform 0.2s ease,
-    opacity 0.2s ease;
-
-  &:focus {
-    outline: none;
-  }
-}
-
-.root[data-open='true'] {
-  pointer-events: auto;
-
-  .backdrop {
-    opacity: 1;
-  }
-
-  .dialog {
-    transform: translateY(0);
-    opacity: 1;
-  }
 }
 
 .icon {
