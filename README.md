@@ -47,7 +47,3 @@ Config lives at the repo root; all source lives under `src/`.
 - `src/lib/` — framework-agnostic utilities
 - `.claude/skills/` — `code-style`, `react-conventions`, `check-accessibility`
 - `AGENTS.md` — instructions for AI coding agents working in this repo
-
-## Status
-
-The full homepage is ported from the imported design: the nav bar (`site-header.tsx`), the hero (`hero.tsx`), the principles section (`principles.tsx`), the "Over ons" section (`about.tsx`), the assortiment/products section (`assortiment.tsx`, `product-card.tsx`), the contact section (`contact.tsx`), and the footer (`footer.tsx`), along with the shared `button.tsx`, `section-heading.tsx`, `section-intro.tsx`, and `product-image-placeholder.tsx` components. Every section's text (and the hero/product images) is now backed by Payload CMS and editable via `/login` — see "Backend (Payload CMS)" in `AGENTS.md`. No stock photography is used — the hero uses a real photo of the bakery; product cards use an icon placeholder until a real photo is uploaded for that product. The contact section shows the bakery's email as plain text alongside a `mailto:` link rather than a submittable form — see "Design import" in `AGENTS.md` for that rationale.
