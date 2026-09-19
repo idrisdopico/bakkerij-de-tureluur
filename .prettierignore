@@ -3,3 +3,9 @@ node_modules
 dist
 coverage
 pnpm-lock.yaml
+# Vendored design-system bundles and installed skill docs — not ours to reformat.
+design-import/
+.claude/
+# Payload-generated
+src/payload-types.ts
+src/app/(payload)/
