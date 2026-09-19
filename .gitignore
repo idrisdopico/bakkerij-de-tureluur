@@ -1,0 +1,48 @@
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# env files
+.env
+.env*.local
+
+# typescript
+next-env.d.ts
+*.tsbuildinfo
+
+# vercel
+.vercel
+
+# payload — generated from src/payload.config.ts + the collections/globals
+# under src/backend/, regenerated automatically by `pnpm dev` (or
+# `pnpm payload generate:types`); not meant to be hand-edited or committed.
+/src/payload-types.ts
+
+# payload — local-disk upload storage, used only when BLOB_READ_WRITE_TOKEN
+# isn't set (see src/payload.config.ts). The media collection sets no
+# `staticDir`, so Payload defaults to a top-level `/media` dir. Real uploads
+# belong in Vercel Blob in any deployed environment, not committed to the repo.
+/media
+.neon
+
+# claude code — per-machine settings (permissions, etc.); the shared
+# `.claude/settings.json` and `.claude/skills/` are committed, this isn't.
+.claude/settings.local.json

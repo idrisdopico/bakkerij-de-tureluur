@@ -1,0 +1,30 @@
+:root{
+--font-display:"Cormorant","Iowan Old Style",Georgia,serif;
+--font-body:"Manrope",-apple-system,"Segoe UI",sans-serif;
+--font-mono:"JetBrains Mono","SF Mono",Menlo,monospace;
+
+--text-xs:0.75rem;
+--text-sm:0.875rem;
+--text-base:1rem;
+--text-md:1.125rem;
+--text-lg:1.375rem;
+--text-xl:1.75rem;
+--text-2xl:2.25rem;
+--text-3xl:3rem;
+--text-4xl:4rem;
+
+--leading-tight:1.1;
+--leading-snug:1.3;
+--leading-normal:1.55;
+--leading-relaxed:1.75;
+
+--tracking-tight:-0.01em;
+--tracking-normal:0;
+--tracking-wide:0.04em;
+--tracking-wider:0.12em;
+
+--weight-light:300;
+--weight-regular:400;
+--weight-medium:500;
+--weight-semibold:600;
+}

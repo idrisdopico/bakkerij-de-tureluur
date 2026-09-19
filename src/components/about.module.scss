@@ -1,0 +1,24 @@
+.about {
+  padding: 48px 20px;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  background: var(--surface-page);
+}
+
+// Wraps Payload's `RichText` output — its own children are plain `<p>` tags
+// it renders itself, not individually classed elements, so the spacing
+// between them is styled here via nesting rather than the `& + &` sibling
+// pattern this used before the content moved into the CMS.
+.paragraph {
+  font-size: var(--fs-md);
+  color: var(--text-muted);
+  line-height: var(--lh-relaxed);
+
+  p {
+    margin: 24px 0 0;
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+}

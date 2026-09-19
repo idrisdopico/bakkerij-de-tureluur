@@ -1,0 +1,75 @@
+:root{
+/* --- wood / primary (Hinoki Cedar) --- */
+--wood-100:#f0e0cd;
+--wood-200:#e2c7a4;
+--wood-300:#d0a877;
+--wood-400:#b8804f;
+--wood-500:#a06b3e;
+--wood-600:#8a5a34;
+--wood-700:#6b452a;
+--wood-800:#4a301e;
+
+/* --- sage / accent --- */
+--sage-100:#e4e8dd;
+--sage-200:#c7d0b8;
+--sage-300:#a5b28e;
+--sage-400:#849267;
+--sage-500:#6b7a5e;
+--sage-600:#556149;
+--sage-700:#3f4936;
+
+/* --- frost / winter (cool, desaturated — tuned to sit beside the wood tones) --- */
+--frost-100:#e4eaec;
+--frost-200:#c9d6da;
+--frost-300:#a8bcc4;
+--frost-500:#6b8894;
+--frost-700:#3f545e;
+--frost-900:#26363d;
+
+/* --- warm neutrals (paper -> ink) --- */
+--neutral-0:#faf7f1;
+--neutral-50:#f6f1e8;
+--neutral-100:#efe7d9;
+--neutral-200:#e2d5bf;
+--neutral-300:#cdbc9e;
+--neutral-400:#ab9679;
+--neutral-500:#8a7458;
+--neutral-600:#6c5940;
+--neutral-700:#4f3f2c;
+--neutral-800:#372c1f;
+--neutral-900:#241c14;
+
+/* --- semantic --- */
+--color-success:#6b7a5e;
+--color-success-bg:#e4e8dd;
+--color-warning:#c48a3e;
+--color-warning-bg:#f4e6ce;
+--color-error:#a1543a;
+--color-error-bg:#f1ddd3;
+--color-info:#6b7d85;
+--color-info-bg:#e2e7e8;
+
+/* --- semantic aliases --- */
+--bg-page:var(--neutral-50);
+--bg-canvas:var(--neutral-0);
+--surface-card:var(--neutral-0);
+--surface-sunken:var(--neutral-100);
+--surface-inverse:var(--neutral-900);
+
+--fg-1:var(--neutral-900);
+--fg-2:var(--neutral-600);
+--fg-3:var(--neutral-400);
+--fg-inverse:var(--neutral-50);
+
+--border-soft:var(--neutral-200);
+--border-default:var(--neutral-300);
+--border-strong:var(--neutral-500);
+
+--accent-primary:var(--wood-400);
+--accent-primary-hover:var(--wood-500);
+--accent-primary-active:var(--wood-600);
+--accent-secondary:var(--sage-500);
+--accent-secondary-hover:var(--sage-600);
+--brand-mark-bg:var(--frost-700);
+--brand-mark-fg:var(--frost-100);
+}

@@ -1,0 +1,54 @@
+:root{
+/* Base palette — greens sampled/extended from brand brief (#3b5a3d, #d7ded8) */
+--green-900:#20301f;
+--green-800:#2c422e;
+--green-700:#3b5a3d;
+--green-600:#4d7050;
+--green-500:#6d8f6c;
+--green-300:#b7cab3;
+--green-200:#cad9c5;
+--green-100:#d7ded8;
+
+/* Ink, sampled from logo linework (#363636) */
+--ink-900:#242424;
+--ink-700:#363636;
+--ink-500:#5a5a54;
+--ink-300:#8a8a80;
+
+/* Warm neutrals — unbleached flour / paper, not cold gray */
+--cream-100:#f3ede2;
+--cream-50:#faf7f1;
+--white:#ffffff;
+
+/* Brand orange, sampled exactly from logo (tern's beak & legs: #ff6612) */
+--orange-700:#c94e0b;
+--orange-600:#e05a0a;
+--orange-500:#ff6612;
+--orange-400:#ff8c4d;
+--orange-100:#ffe4d2;
+--orange-50:#fff3ea;
+
+--border-default:var(--green-200);
+
+/* Semantic aliases */
+--surface-page:var(--cream-50);
+--surface-card:var(--white);
+--surface-sunken:var(--cream-100);
+--surface-inverse:var(--green-800);
+
+--brand-primary:var(--green-700);
+--brand-primary-hover:var(--green-800);
+--brand-primary-active:var(--green-900);
+
+--accent:var(--orange-500);
+--accent-hover:var(--orange-600);
+
+--text-body:var(--ink-900);
+--text-muted:var(--ink-500);
+--text-inverse:var(--cream-50);
+
+--link:var(--green-700);
+--link-hover:var(--green-800);
+
+--focus-ring:var(--green-600);
+}

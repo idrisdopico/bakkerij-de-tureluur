@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics="">
+<link rel="stylesheet" href="_ds/bakkerij-de-tureluur-design-system-4dc90269-baa7-4553-be10-4c462753d3bc/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/bakkerij-de-tureluur-design-system-4dc90269-baa7-4553-be10-4c462753d3bc/tokens/colors.css">
+<link rel="stylesheet" href="_ds/bakkerij-de-tureluur-design-system-4dc90269-baa7-4553-be10-4c462753d3bc/tokens/typography.css">
+<link rel="stylesheet" href="_ds/bakkerij-de-tureluur-design-system-4dc90269-baa7-4553-be10-4c462753d3bc/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/bakkerij-de-tureluur-design-system-4dc90269-baa7-4553-be10-4c462753d3bc/tokens/radius.css">
+<link rel="stylesheet" href="_ds/bakkerij-de-tureluur-design-system-4dc90269-baa7-4553-be10-4c462753d3bc/tokens/shadows.css">
+<link rel="stylesheet" href="_ds/bakkerij-de-tureluur-design-system-4dc90269-baa7-4553-be10-4c462753d3bc/tokens/base.css">
+<link rel="stylesheet" href="_ds/bakkerij-de-tureluur-design-system-4dc90269-baa7-4553-be10-4c462753d3bc/styles.css">
+<script src="_ds/bakkerij-de-tureluur-design-system-4dc90269-baa7-4553-be10-4c462753d3bc/_ds_bundle.js"></script>
+<script src="image-slot.js"></script>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--surface-page);overflow-x:hidden}
+a{color:var(--link)}
+a:hover{color:var(--link-hover)}
+</style>
+</helmet>
+<template id="__bundler_thumbnail" data-bg-color="#e8ecd9">
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+<rect width="100" height="100" fill="#e8ecd9"/>
+<text x="50" y="58" font-size="34" text-anchor="middle" fill="#4a5d3a">🥖</text>
+</svg>
+</template>
+<div style="font-family:var(--font-body);background:var(--surface-page);color:var(--text-body)">
+
+<nav style="position:sticky;top:0;z-index:20;background:var(--surface-sunken);border-bottom:1px solid var(--border-default)">
+<div style="display:flex;align-items:center;justify-content:space-between;padding:14px 20px;max-width:1200px;margin:0 auto">
+<a href="#home" onclick="{{ closeMenu }}" style="display:flex;align-items:center;gap:10px;text-decoration:none">
+<img src="assets/logo.png" style="height:68px;width:68px;object-fit:contain">
+<span style="font-family:var(--font-display);font-weight:var(--fw-semibold);font-size:var(--fs-md);color:var(--brand-primary)">Bakkerij de Tureluur</span>
+</a>
+
+<sc-if value="{{ isMobile }}" hint-placeholder-val="{{ true }}">
+<button onclick="{{ toggleMenu }}" aria-label="Menu" style="width:44px;height:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;background:none;border:none;cursor:pointer;padding:0">
+<span style="width:22px;height:2px;background:var(--text-body);transition:transform .15s ease"></span>
+<span style="width:22px;height:2px;background:var(--text-body);transition:opacity .15s ease"></span>
+<span style="width:22px;height:2px;background:var(--text-body);transition:transform .15s ease"></span>
+</button>
+</sc-if>
+<sc-if value="{{ notMobile }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;align-items:center;gap:28px">
+<a href="#home" style="font-size:var(--fs-base);font-weight:var(--fw-medium);text-decoration:none;color:var(--brand-primary);border-bottom:2px solid var(--brand-primary);padding-bottom:4px">Home</a>
+<a href="#over" style="font-size:var(--fs-base);font-weight:var(--fw-medium);text-decoration:none;color:var(--text-body);border-bottom:2px solid transparent;padding-bottom:4px">Over ons</a>
+<a href="#assortiment" style="font-size:var(--fs-base);font-weight:var(--fw-medium);text-decoration:none;color:var(--text-body);border-bottom:2px solid transparent;padding-bottom:4px">Assortiment</a>
+<a href="#contact" style="font-size:var(--fs-base);font-weight:var(--fw-medium);text-decoration:none;color:var(--text-body);border-bottom:2px solid transparent;padding-bottom:4px">Contact</a>
+</div>
+</sc-if>
+</div>
+</nav>
+
+<sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+<div style="position:sticky;top:65px;z-index:19;background:var(--surface-card);border-bottom:1px solid var(--border-default);display:flex;flex-direction:column;padding:8px 20px 18px;gap:2px;box-shadow:var(--shadow-md)">
+<a href="#home" onclick="{{ closeMenu }}" style="padding:12px 4px;font-size:var(--fs-md);font-weight:var(--fw-medium);text-decoration:none;color:var(--brand-primary)">Home</a>
+<a href="#over" onclick="{{ closeMenu }}" style="padding:12px 4px;font-size:var(--fs-md);font-weight:var(--fw-medium);text-decoration:none;color:var(--text-body);border-top:1px solid var(--green-100)">Over ons</a>
+<a href="#assortiment" onclick="{{ closeMenu }}" style="padding:12px 4px;font-size:var(--fs-md);font-weight:var(--fw-medium);text-decoration:none;color:var(--text-body);border-top:1px solid var(--green-100)">Assortiment</a>
+<a href="#contact" onclick="{{ closeMenu }}" style="padding:12px 4px;font-size:var(--fs-md);font-weight:var(--fw-medium);text-decoration:none;color:var(--text-body);border-top:1px solid var(--green-100)">Contact</a>
+</div>
+</sc-if>
+
+<section id="home" style="position:relative;min-height:80vh;display:flex;align-items:flex-end;padding:0;margin:0;overflow:hidden">
+<image-slot id="hero-bread" shape="rect" style="position:absolute;inset:0;width:100%;height:100%;z-index:0" src="https://images.unsplash.com/photo-1780644804493-6ac6238e7ecf?fm=jpg&amp;q=80&amp;w=1600&amp;auto=format&amp;fit=crop" credit="Photo by Kate Tepl on Unsplash" credit-href="https://unsplash.com/@kate_tepla" placeholder="foto: brood op de plank"></image-slot>
+<div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(32,48,31,0.15) 0%,rgba(32,48,31,0.85) 100%);z-index:1"></div>
+<div style="position:relative;z-index:2;padding:40px 20px 44px;max-width:1200px;margin:0 auto;width:100%">
+<h1 style="font-family:var(--font-display);font-weight:var(--fw-semibold);font-size:2rem;line-height:var(--lh-tight);color:var(--cream-50);margin:0 0 14px">Bakkerij de Tureluur — est 2019 · de eerste bakkerij in het Oosterwold!</h1>
+<div style="font-size:var(--fs-md);font-weight:var(--fw-medium);color:var(--orange-400)">Voor mooi en eerlijk brood met karakter.</div>
+<div style="display:flex;flex-direction:row;gap:12px;margin-top:28px">
+<x-import component-from-global-scope="BakkerijDeTureluurDesignSystem_4dc902.Button" from="_ds/bakkerij-de-tureluur-design-system-4dc90269-baa7-4553-be10-4c462753d3bc/_ds_bundle.js" variant="accent" size="lg" onClick="{{ mailOrder }}" style="flex:1 1 50%" hint-size="50%,52px">Bestel per e-mail</x-import>
+<div style="flex:1 1 50%;--brand-primary:var(--cream-50);--surface-sunken:var(--green-800)">
+<x-import component-from-global-scope="BakkerijDeTureluurDesignSystem_4dc902.Button" from="_ds/bakkerij-de-tureluur-design-system-4dc90269-baa7-4553-be10-4c462753d3bc/_ds_bundle.js" variant="secondary" size="lg" onClick="{{ scrollToAssortiment }}" style="width:100%" hint-size="100%,52px">Bekijk assortiment</x-import>
+</div>
+</div>
+</div>
+</section>
+
+<section style="padding:44px 0;background:var(--green-100)">
+<div style="max-width:1200px;margin:0 auto;padding:0 20px">
+<div style="display:flex;align-items:flex-start;gap:14px">
+<div style="flex:none;width:44px;height:44px;border-radius:50%;background:var(--surface-card);display:flex;align-items:center;justify-content:center;color:var(--brand-primary);margin-top:4px">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="24" height="24">
+<line x1="12" y1="22" x2="12" y2="4"></line>
+<path d="M12 6l-4 -3"></path><path d="M12 6l4 -3"></path>
+<path d="M12 10l-4 -3"></path><path d="M12 10l4 -3"></path>
+<path d="M12 14l-4 -3"></path><path d="M12 14l4 -3"></path>
+<path d="M12 18l-4 -3"></path><path d="M12 18l4 -3"></path>
+</svg>
+</div>
+<div style="--fs-2xl:var(--fs-3xl);--text-body:var(--brand-primary);--text-muted:var(--accent);flex:1;min-width:0">
+<x-import component-from-global-scope="BakkerijDeTureluurDesignSystem_4dc902.SectionHeading" from="_ds/bakkerij-de-tureluur-design-system-4dc90269-baa7-4553-be10-4c462753d3bc/_ds_bundle.js" title="Onze uitgangspunten" subtitle="Dit zijn onze uitgangspunten:" hint-size="100%,80px"></x-import>
+</div>
+</div>
+<ul style="margin:28px 0 0;padding:0;list-style:none;display:flex;flex-direction:column">
+<sc-for list="{{ principles }}" as="p" hint-placeholder-count="8">
+<li style="display:flex;align-items:center;gap:20px;font-size:var(--fs-base);color:var(--text-body);line-height:1.55;padding:16px 0;border-top:1px solid var(--border-default)">
+<span style="font-family:var(--font-display);font-size:var(--fs-2xl);font-weight:var(--fw-semibold);color:var(--accent);flex:none;width:52px">{{ p.num }}</span>
+<span>{{ p.text }}</span>
+</li>
+</sc-for>
+</ul>
+<p style="font-family:var(--font-display);font-size:var(--fs-lg);font-weight:var(--fw-semibold);color:var(--brand-primary);margin:24px 0 0">Zo bakken we brood zoals brood hoort te zijn.</p>
+</div>
+</section>
+
+<section id="over" style="padding:48px 20px;max-width:1200px;margin:0 auto;background:var(--surface-page)">
+<div style="display:flex;align-items:flex-start;gap:14px">
+<div style="flex:none;width:44px;height:44px;border-radius:50%;background:var(--green-100);display:flex;align-items:center;justify-content:center;color:var(--brand-primary);margin-top:4px">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="24" height="24">
+<path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78Z"></path>
+</svg>
+</div>
+<div style="--fs-2xl:var(--fs-3xl);--text-body:var(--brand-primary);--text-muted:var(--accent);flex:1;min-width:0">
+<x-import component-from-global-scope="BakkerijDeTureluurDesignSystem_4dc902.SectionHeading" from="_ds/bakkerij-de-tureluur-design-system-4dc90269-baa7-4553-be10-4c462753d3bc/_ds_bundle.js" title="Over ons" subtitle="Sandra Ansmink &amp; Ezra Dopico Peña" hint-size="100%,80px"></x-import>
+</div>
+</div>
+<p style="font-size:var(--fs-md);color:var(--text-muted);line-height:var(--lh-relaxed);margin:24px 0 0">De bakkerij opende op 11 mei 2019 voor het eerst haar deur. Dat was weliswaar de deur van ons tijdelijke pand, maar toch. Het gaf ons de kans een jaar met het Oosterwold te groeien, vraag en aanbod af te tasten en kennis te maken met een fantastische klantenkring. Wat voelen wij ons bevoorrecht!</p>
+<p style="font-size:var(--fs-md);color:var(--text-muted);line-height:var(--lh-relaxed);margin-top:16px">Na bijna een jaar hebben we het definitieve pand betrokken, nee niet alles is af, maar het is werkbaar. Een zee van ruimte. We kunnen de productie opschalen door meer ruimte, en qua bedrijfsmiddelen breiden we stap voor stap uit.</p>
+</section>
+
+<section id="assortiment" style="padding:48px 0;background:var(--green-100)">
+<div style="max-width:1200px;margin:0 auto;padding:0 20px">
+<div style="display:flex;align-items:flex-start;gap:14px">
+<div style="flex:none;width:44px;height:44px;border-radius:50%;background:var(--surface-card);display:flex;align-items:center;justify-content:center;color:var(--brand-primary);margin-top:4px">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="24" height="24">
+<path d="M4 20a8 8 0 1 1 16 0Z"></path>
+<path d="M7 14l1.5 5"></path><path d="M12 12.5l1.5 6.5"></path><path d="M17 14l-1.5 5"></path>
+</svg>
+</div>
+<div style="--fs-2xl:var(--fs-3xl);--text-body:var(--brand-primary);--text-muted:var(--accent);flex:1;min-width:0">
+<x-import component-from-global-scope="BakkerijDeTureluurDesignSystem_4dc902.SectionHeading" from="_ds/bakkerij-de-tureluur-design-system-4dc90269-baa7-4553-be10-4c462753d3bc/_ds_bundle.js" title="De producten" subtitle="Wat we bakken" hint-size="100%,80px"></x-import>
+</div>
+</div>
+
+<div style="margin-top:20px;margin-bottom:8px">
+<h3 style="font-family:var(--font-display);font-weight:var(--fw-semibold);font-size:var(--fs-lg);color:var(--text-body);margin:0 0 8px">Bio en puur desem</h3>
+<p style="font-size:var(--fs-md);color:var(--text-muted);line-height:var(--lh-relaxed);margin:0">Robuuste desembroden van diverse graansoorten en baguettes vormen de basis van het assortiment. Zo is er de lemaire, een mooie batard van gebuild tarwemeel (=lemaire) op basis van een volkoren-roggedesem. De lemaire is er tevens in een gevulde variant. Het tarwe volkorenbrood, een batard waar we zonnebloempitten of pompoenpitten aan toevoegen, heeft ook een roggedesem als basis en overigens een deel speltmeel. Hiermee is het eigenlijk een meergranenbrood. Het zijn karaktervolle broden op de stenen vloer gebakken. Ook speltbrood in diverse varianten, meer of minder volkoren en al dan niet met sesam- of maanzaad behoren tot het vaste assortiment. Uiteraard volledig op desembasis.</p>
+<p style="font-size:var(--fs-md);color:var(--text-muted);line-height:var(--lh-relaxed);margin-top:14px">In aanvulling op het vaste assortiment desembrood is er een variatie aan andere broden afhankelijk van seizoen en beschikbaarheid van producten. In alle broden zit maximaal 2% Keltisch zeezout.</p>
+</div>
+
+<div style="margin-top:28px;margin-bottom:28px">
+<h3 style="font-family:var(--font-display);font-weight:var(--fw-semibold);font-size:var(--fs-lg);color:var(--text-body);margin:0 0 8px">Bio viennoiserie</h3>
+<p style="font-size:var(--fs-md);color:var(--text-muted);line-height:var(--lh-relaxed);margin:0">Er zijn regelmatig brioches, al dan niet met een vulling van gekonfijte vruchten, chocolade en 'raw cacao', vloerkadetjes, appel-rozijnenbolletjes, kwarkbolletjes, Italiaanse bollen, groentebroodjes etc. Voor dit type brood gebruiken we soms behalve desem ook gist of een voordeeg.</p>
+<p style="font-size:var(--fs-md);color:var(--text-muted);line-height:var(--lh-relaxed);margin-top:14px">Ook hebben we croissants, deze zijn beschikbaar in allerlei variaties, onder andere met kaas of als Danish met vulling van frangipane en vruchten.</p>
+</div>
+
+<h3 style="font-family:var(--font-display);font-weight:var(--fw-semibold);font-size:var(--fs-lg);color:var(--text-body);margin:0 0 16px">Overzicht assortiment</h3>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap: 16px; align-items: stretch">
+<sc-for list="{{ products }}" as="prod" hint-placeholder-count="6">
+<div style="display: flex; flex-direction: column; min-height: 340px; border: 1px solid var(--border-default); border-radius: 8px; box-shadow: var(--shadow-md); overflow: hidden; background: var(--surface-card); width: 100%; flex-wrap: nowrap">
+<image-slot id="{{ prod.slotId }}" shape="rect" style="width: 100%; height: 140px; flex: none" src="{{ prod.img }}" credit="{{ prod.credit }}" credit-href="{{ prod.creditHref }}" placeholder="foto: {{ prod.naam }}"></image-slot>
+<div style="flex: 1; display: flex; flex-direction: column; padding: 18px; background: var(--surface-card); align-items: flex-start; gap: 8px; padding-top: 16px; padding-right: 16px; padding-bottom: 16px; padding-left: 16px; justify-content: flex-start; align-self: auto; width: 100%">
+<div style="font-family:var(--font-display);font-weight:var(--fw-semibold);font-size:var(--fs-md);color:var(--text-body)">{{ prod.naam }}</div>
+<div style="font-size:var(--fs-sm);color:var(--text-muted);margin-top:4px;line-height:var(--lh-normal)">{{ prod.ingr }}</div>
+<div style="font-family:var(--font-display);font-size:var(--fs-base);color:var(--accent);margin-top:12px;font-weight:var(--fw-semibold)">{{ prod.gewicht }}</div>
+</div>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+
+<section id="contact" style="padding: 48px 20px; max-width: 1200px; margin: 0 auto; background: var(--surface-page)">
+<div style="display:flex;align-items:flex-start;gap:14px">
+<div style="flex:none;width:44px;height:44px;border-radius:50%;background:var(--green-100);display:flex;align-items:center;justify-content:center;color:var(--brand-primary);margin-top:4px">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="24" height="24">
+<rect x="3" y="5" width="18" height="14" rx="2"></rect>
+<path d="M3 7l9 6 9-6"></path>
+</svg>
+</div>
+<div style="--fs-2xl:var(--fs-3xl);--text-body:var(--brand-primary);--text-muted:var(--accent);flex:1;min-width:0">
+<x-import component-from-global-scope="BakkerijDeTureluurDesignSystem_4dc902.SectionHeading" from="_ds/bakkerij-de-tureluur-design-system-4dc90269-baa7-4553-be10-4c462753d3bc/_ds_bundle.js" title="Contact" subtitle="Langskomen of bestellen" hint-size="100%,80px"></x-import>
+</div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:16px;margin-top:24px">
+<x-import component-from-global-scope="BakkerijDeTureluurDesignSystem_4dc902.Input" from="_ds/bakkerij-de-tureluur-design-system-4dc90269-baa7-4553-be10-4c462753d3bc/_ds_bundle.js" label="Naam" placeholder="Je naam" hint-size="100%,66px"></x-import>
+<x-import component-from-global-scope="BakkerijDeTureluurDesignSystem_4dc902.Input" from="_ds/bakkerij-de-tureluur-design-system-4dc90269-baa7-4553-be10-4c462753d3bc/_ds_bundle.js" label="E-mailadres" type="email" placeholder="naam@voorbeeld.nl" hint-size="100%,66px"></x-import>
+<x-import component-from-global-scope="BakkerijDeTureluurDesignSystem_4dc902.Input" from="_ds/bakkerij-de-tureluur-design-system-4dc90269-baa7-4553-be10-4c462753d3bc/_ds_bundle.js" label="Bestelling" as="textarea" placeholder="Wat wil je bestellen, en voor welke dag?" hint-size="100%,120px"></x-import>
+<div style="align-self:flex-start;display:inline-block">
+<x-import component-from-global-scope="BakkerijDeTureluurDesignSystem_4dc902.Button" from="_ds/bakkerij-de-tureluur-design-system-4dc90269-baa7-4553-be10-4c462753d3bc/_ds_bundle.js" variant="primary" size="md" style="width:auto" hint-size="140px,44px">Versturen</x-import>
+</div>
+</div>
+
+</section>
+
+<footer style="background:var(--surface-inverse);color:var(--text-inverse);font-family:var(--font-body)">
+<div style="max-width:1200px;margin:0 auto;padding:48px 20px 32px;display:flex;flex-direction:column;gap:24px">
+<div>
+<div style="font-family:var(--font-display);font-size:var(--fs-lg);font-weight:var(--fw-semibold)">Bakkerij de Tureluur</div>
+<div style="font-size:var(--fs-base);font-style:italic;opacity:0.9;margin-top:6px">Duurzaam en puur</div>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:20px">
+<div>
+<div style="font-weight:var(--fw-semibold);font-size:var(--fs-sm);margin-bottom:6px;opacity:0.95">Openingstijden</div>
+<div style="font-size:var(--fs-sm);line-height:var(--lh-relaxed);opacity:0.8">Zaterdag 9.00 - 14.00<br>Zondag 9.00 – 14.00</div>
+</div>
+<div>
+<div style="font-weight:var(--fw-semibold);font-size:var(--fs-sm);margin-bottom:6px;opacity:0.95">Contact</div>
+<div style="font-size:var(--fs-sm);line-height:var(--lh-relaxed);opacity:0.8">Sandra Ansmink<br>Ezra Dopico Peña</div>
+</div>
+<div>
+<div style="font-weight:var(--fw-semibold);font-size:var(--fs-sm);margin-bottom:6px;opacity:0.95">Adres</div>
+<div style="font-size:var(--fs-sm);line-height:var(--lh-relaxed);opacity:0.8">Tureluurdwarsstraat 12<br>1349 EK Almere</div>
+</div>
+<div>
+<div style="font-weight:var(--fw-semibold);font-size:var(--fs-sm);margin-bottom:6px;opacity:0.95">Socials</div>
+<div style="font-size:var(--fs-sm);line-height:var(--lh-relaxed);opacity:0.8"><a href="mailto:detureluur@gmail.com" style="color:inherit">detureluur@gmail.com</a><br>Instagram: <a href="https://instagram.com/bakkerij_detureluur" style="color:inherit">instagram.com/bakkerij_detureluur</a></div>
+</div>
+</div>
+</div>
+</footer>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = {
+    isMobile: typeof window !== 'undefined' ? window.innerWidth < 860 : true,
+    menuOpen: false
+  };
+
+  principles = [
+    { num: "01", text: "Pure grondstoffen gebruiken, van biologische of biologisch dynamische oorsprong en zo regionaal mogelijk geproduceerd" },
+    { num: "02", text: "De meeste van onze degen bereiden met desem" },
+    { num: "03", text: "Geen onnodige toevoegingen of meelverbeteraars gebruiken" },
+    { num: "04", text: "Het deeg ruim tijd geven te fermenteren, veelal overnacht zodat het makkelijk verteerbaar is en alle tijd heeft optimaal smaak en aroma te ontwikkelen" },
+    { num: "05", text: "Ons deeg handmatig verwerken" },
+    { num: "06", text: "Al onze producten volledig zelf maken, dus geen halffabricaten inkopen" },
+    { num: "07", text: "Al onze producten vers aanbieden tenzij anders vermeld" },
+    { num: "08", text: "Zo mogelijk producten van eigen erf/Oosterwold benutten, denk aan fruit, kruiden, groenten en eieren" }
+  ];
+
+  products = [
+    { naam: "Lemaire/Grijs brood", ingr: "Gebuild tarwemeel/lemaire en roggedesem", gewicht: "½ kg, 1 kg", img: "https://images.unsplash.com/photo-1780644804493-6ac6238e7ecf?fm=jpg&q=80&w=800&auto=format&fit=crop", credit: "Photo by Kate Tepl on Unsplash", creditHref: "https://unsplash.com/@kate_tepla" },
+    { naam: "Gevulde lemaire", ingr: "Gebuild tarwemeel/lemaire, tarwedesem, abrikozen, walnoten en hazelnoten", gewicht: "580 g", img: "https://images.unsplash.com/photo-1774669081553-4ef841520c05?fm=jpg&q=80&w=800&auto=format&fit=crop", credit: "Photo by tommao wang on Unsplash", creditHref: "https://unsplash.com/@tommaomaoer" },
+    { naam: "Tarwe volkoren (meergranen)", ingr: "Tarwemeel, speltmeel, pitjes en roggedesem", gewicht: "600 g, 900 g", img: "https://images.unsplash.com/photo-1719161148345-c88b05af8186?fm=jpg&q=80&w=800&auto=format&fit=crop", credit: "Photo by Olga Petnyunene on Unsplash", creditHref: "https://unsplash.com/@12tones" },
+    { naam: "Volkoren rozijnen", ingr: "Tarwemeel, tarwedesem en rozijnen", gewicht: "500 g", img: "https://images.unsplash.com/photo-1780644804493-6ac6238e7ecf?fm=jpg&q=80&w=800&auto=format&fit=crop", credit: "Photo by Kate Tepl on Unsplash", creditHref: "https://unsplash.com/@kate_tepla" },
+    { naam: "Polderlandbrood grijs", ingr: "Lokaal steengemalen tarwebloem en tarwedesem", gewicht: "800 g", img: "https://images.unsplash.com/photo-1774669081553-4ef841520c05?fm=jpg&q=80&w=800&auto=format&fit=crop", credit: "Photo by tommao wang on Unsplash", creditHref: "https://unsplash.com/@tommaomaoer" },
+    { naam: "Spelt wit", ingr: "Speltbloem, (rogge), tarwedesem met/zonder maanzaad/sesamzaad", gewicht: "600 g", img: "https://images.unsplash.com/photo-1719161148345-c88b05af8186?fm=jpg&q=80&w=800&auto=format&fit=crop", credit: "Photo by Olga Petnyunene on Unsplash", creditHref: "https://unsplash.com/@12tones" },
+    { naam: "Spelt bruin", ingr: "Speltmeel- en bloem, tarwedesem met/zonder maanzaad/sesamzaad", gewicht: "600 g", img: "https://images.unsplash.com/photo-1780644804493-6ac6238e7ecf?fm=jpg&q=80&w=800&auto=format&fit=crop", credit: "Photo by Kate Tepl on Unsplash", creditHref: "https://unsplash.com/@kate_tepla" },
+    { naam: "Baguette", ingr: "Tarwebloem, tarwedesem, (soms rogge/durum/kamut) eventueel zaden en pitten", gewicht: "350 g", img: "https://images.unsplash.com/photo-1568471173242-461f0a730452?fm=jpg&q=80&w=800&auto=format&fit=crop", credit: "Photo by Sergio Arze on Unsplash", creditHref: "https://unsplash.com/@sergich" },
+    { naam: "Baguette XL", ingr: "Tarwebloem, tarwedesem, (soms rogge/durum/kamut) eventueel zaden en pitten", gewicht: "500 g", img: "https://images.unsplash.com/photo-1568471173242-461f0a730452?fm=jpg&q=80&w=800&auto=format&fit=crop", credit: "Photo by Sergio Arze on Unsplash", creditHref: "https://unsplash.com/@sergich" },
+    { naam: "Ciabatta/Focaccia/Italiaanse bol", ingr: "Tarwebloem, (durum), (speltbloem), tarwedesem, olijfolie, soms vulling gedroogde tomaat, olijven en kruiden", gewicht: "Divers", img: "https://images.unsplash.com/photo-1774669081553-4ef841520c05?fm=jpg&q=80&w=800&auto=format&fit=crop", credit: "Photo by tommao wang on Unsplash", creditHref: "https://unsplash.com/@tommaomaoer" },
+    { naam: "Pain de Seigle", ingr: "Roggemeel, roggedesem, wisselende vulling (bijv. walnoten, oude kaas of notenmix)", gewicht: "600 g", img: "https://images.unsplash.com/photo-1719161148345-c88b05af8186?fm=jpg&q=80&w=800&auto=format&fit=crop", credit: "Photo by Olga Petnyunene on Unsplash", creditHref: "https://unsplash.com/@12tones" },
+    { naam: "Tureluurtje", ingr: "Gebuild tarwemeel en bloem, tarwedesem, roggemeel, port, krenten, walnoten en rocquefort", gewicht: "250 g", img: "https://images.unsplash.com/photo-1719161148345-c88b05af8186?fm=jpg&q=80&w=800&auto=format&fit=crop", credit: "Photo by Olga Petnyunene on Unsplash", creditHref: "https://unsplash.com/@12tones" },
+    { naam: "Vloerkadetje", ingr: "Tarwebloem, tarwedesem, gist, melk, suiker, ei, boter en rijstmeel", gewicht: "80 g", img: "https://images.unsplash.com/photo-1774669081553-4ef841520c05?fm=jpg&q=80&w=800&auto=format&fit=crop", credit: "Photo by tommao wang on Unsplash", creditHref: "https://unsplash.com/@tommaomaoer" },
+    { naam: "Appel-Rozijnenbolletje", ingr: "Tarwebloem en gebuild meel, gist, melk, suiker, ei, boter, appel, rozijnen en/of krenten", gewicht: "80–90 g", img: "https://images.unsplash.com/photo-1774669081553-4ef841520c05?fm=jpg&q=80&w=800&auto=format&fit=crop", credit: "Photo by tommao wang on Unsplash", creditHref: "https://unsplash.com/@tommaomaoer" },
+    { naam: "Haverbol", ingr: "Tarwe- meel en bloem, tarwedesem, roggemeel en havervlokken", gewicht: "500 g", img: "https://images.unsplash.com/photo-1780644804493-6ac6238e7ecf?fm=jpg&q=80&w=800&auto=format&fit=crop", credit: "Photo by Kate Tepl on Unsplash", creditHref: "https://unsplash.com/@kate_tepla" },
+    { naam: "Brioche", ingr: "Tarwebloem, suiker, honing, tarwedesem, gist, melk, boter en ei", gewicht: "100 g", img: "https://images.unsplash.com/photo-1548538931-b47653628cdc?fm=jpg&q=80&w=800&auto=format&fit=crop", credit: "Photo by Mimi Thian on Unsplash", creditHref: "https://unsplash.com/@mimithian" },
+    { naam: "Brioche gevuld", ingr: "Tarwebloem, suiker, honing, tarwedesem, gist, melk, boter, ei, chocolade en citrus", gewicht: "100 g", img: "https://images.unsplash.com/photo-1548538931-b47653628cdc?fm=jpg&q=80&w=800&auto=format&fit=crop", credit: "Photo by Mimi Thian on Unsplash", creditHref: "https://unsplash.com/@mimithian" },
+    { naam: "Croissant", ingr: "Tarwebloem, ei, boter, melk, suiker, tarwedesem en gist", gewicht: "90 g", img: "https://images.unsplash.com/photo-1548538931-b47653628cdc?fm=jpg&q=80&w=800&auto=format&fit=crop", credit: "Photo by Mimi Thian on Unsplash", creditHref: "https://unsplash.com/@mimithian" }
+  ];
+
+  constructor(props) {
+    super(props);
+    this.products = this.products.map((p, i) => ({ ...p, slotId: 'product-' + i }));
+  }
+
+  componentDidMount() {
+    this.onResize = () => this.setState({ isMobile: window.innerWidth < 860 });
+    window.addEventListener('resize', this.onResize);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.onResize);
+  }
+
+  toggleMenu = () => this.setState(s => ({ menuOpen: !s.menuOpen }));
+  closeMenu = () => this.setState({ menuOpen: false });
+  scrollToAssortiment = () => document.getElementById('assortiment').scrollIntoView();
+  mailOrder = () => { window.location.href = 'mailto:detureluur@gmail.com'; };
+
+  renderVals() {
+    return {
+      isMobile: this.state.isMobile,
+      notMobile: !this.state.isMobile,
+      menuOpen: this.state.isMobile && this.state.menuOpen,
+      toggleMenu: this.toggleMenu,
+      closeMenu: this.closeMenu,
+      scrollToAssortiment: this.scrollToAssortiment,
+      mailOrder: this.mailOrder,
+      principles: this.principles,
+      products: this.products
+    };
+  }
+}
+
+</script>
+</body>
+</html>

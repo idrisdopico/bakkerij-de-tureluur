@@ -1,0 +1,14 @@
+{
+  "extraKnownMarketplaces": {
+    "addy-agent-skills": {
+      "source": { "source": "github", "repo": "addyosmani/agent-skills" }
+    },
+    "mattpocock": {
+      "source": { "source": "github", "repo": "mattpocock/skills" }
+    }
+  },
+  "enabledPlugins": {
+    "agent-skills@addy-agent-skills": true,
+    "mattpocock-skills@mattpocock": true
+  }
+}

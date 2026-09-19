@@ -1,0 +1,52 @@
+.principles {
+  padding: 44px 0;
+  background: var(--green-100);
+}
+
+.container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.list {
+  margin: 28px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-size: var(--fs-base);
+  color: var(--text-body);
+  line-height: 1.55;
+  padding: 16px 0;
+  border-top: 1px solid var(--border-default);
+}
+
+.num {
+  flex: none;
+  width: 52px;
+  font-family: var(--font-display);
+  font-size: var(--fs-2xl);
+  font-weight: var(--fw-semibold);
+  // Large text (36px), so only needs AA's 3:1, not 4.5:1 — `--orange-700`
+  // clears that against `--green-100` (~3.3:1) even though it falls short
+  // of the 4.5:1 normal-text threshold, so this can use the more vivid
+  // shade rather than `--accent-text`.
+  color: var(--orange-700);
+}
+
+.tagline {
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-semibold);
+  // `--brand-primary` alone falls short of AAA (7:1) at this size against
+  // `--green-100` (~5.6:1); `--brand-primary-hover` clears it.
+  color: var(--brand-primary-hover);
+  margin: 24px 0 0;
+}

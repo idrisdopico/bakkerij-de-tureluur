@@ -1,0 +1,197 @@
+// Design tokens, copied from the imported Bakkerij de Tureluur design system
+// (design-import/_ds/bakkerij-de-tureluur-design-system-.../tokens/*.css).
+// If the design system bundle is re-exported, re-sync this block by hand.
+
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Mulish:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+
+:root {
+  // Base palette — greens sampled/extended from brand brief (#3b5a3d, #d7ded8)
+  --green-900: #20301f;
+  --green-800: #2c422e;
+  --green-700: #3b5a3d;
+  --green-600: #4d7050;
+  --green-500: #6d8f6c;
+  --green-300: #b7cab3;
+  --green-200: #cad9c5;
+  --green-100: #d7ded8;
+
+  // Ink, sampled from logo linework (#363636)
+  --ink-900: #242424;
+  --ink-700: #363636;
+  --ink-500: #5a5a54;
+  --ink-300: #8a8a80;
+
+  // Warm neutrals — unbleached flour / paper, not cold gray
+  --cream-100: #f3ede2;
+  --cream-50: #faf7f1;
+  --white: #ffffff;
+
+  // Brand orange, sampled exactly from logo (tern's beak & legs: #ff6612)
+  --orange-700: #c94e0b;
+  --orange-600: #e05a0a;
+  --orange-500: #ff6612;
+  --orange-400: #ff8c4d;
+  --orange-100: #ffe4d2;
+  --orange-50: #fff3ea;
+
+  // Darker step than `--orange-700`, same hue/saturation — not from the
+  // design system, added so accent-colored *text* can clear AA (4.5:1) at
+  // normal sizes against any of this app's light backgrounds, including
+  // `--green-100` (the hardest case: `--orange-700` only reaches ~3.3:1
+  // there). See `--accent-text` below.
+  --orange-800: #a33a00;
+
+  --border-default: var(--green-200);
+
+  // Semantic aliases
+  --surface-page: var(--cream-50);
+  --surface-card: var(--white);
+  --surface-sunken: var(--cream-100);
+  --surface-inverse: var(--green-800);
+
+  --brand-primary: var(--green-700);
+  --brand-primary-hover: var(--green-800);
+  --brand-primary-active: var(--green-900);
+
+  // `--orange-500`/`--orange-600` — vivid brand orange, sampled from the
+  // logo. AA (not AAA) compliant as text/foreground color: this hue can't
+  // reach AAA's 7:1 against this app's light backgrounds without going
+  // muddy/brown, but it's AA-safe (4.5:1 normal text, 3:1 large text) as
+  // long as normal-size text/foreground uses go through `--accent-text`
+  // below rather than `--accent` directly — see AGENTS.md.
+  --accent: var(--orange-500);
+  --accent-hover: var(--orange-600);
+
+  // AA-safe (4.5:1) accent color for *normal-size* text/icons against any
+  // of this app's light backgrounds — `--accent`/`--orange-700` don't
+  // clear 4.5:1 against `--green-100`. Large accent text (≥24px, needs
+  // only 3:1) can use `--orange-700` directly instead, closer to the vivid
+  // brand orange.
+  --accent-text: var(--orange-800);
+
+  --text-body: var(--ink-900);
+  --text-muted: var(--ink-700);
+  --text-inverse: var(--cream-50);
+
+  // `--green-700` only clears AAA (7:1) against `--surface-page`/
+  // `--surface-card`, not `--surface-sunken`/`--green-100` — `--green-800`/
+  // `--green-900` are safe against all of this app's backgrounds, so any
+  // future plain `<a>` is AAA-safe by default regardless of where it lands.
+  --link: var(--green-800);
+  --link-hover: var(--green-900);
+
+  --focus-ring: var(--green-600);
+
+  // Typography
+  --font-display: 'Source Serif 4', 'Lora', Georgia, serif;
+  --font-body:
+    'Mulish', 'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    sans-serif;
+
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.875rem;
+  --fs-base: 1rem;
+  --fs-md: 1.125rem;
+  --fs-lg: 1.375rem;
+  --fs-xl: 1.75rem;
+  --fs-2xl: 2.25rem;
+  --fs-3xl: 3rem;
+  --fs-4xl: 3.75rem;
+
+  --lh-tight: 1.1;
+  --lh-snug: 1.3;
+  --lh-normal: 1.55;
+  --lh-relaxed: 1.7;
+
+  --tracking-tight: -0.01em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.06em;
+  --tracking-wider: 0.14em;
+
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+
+  // Spacing
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+
+  --container-max: 1200px;
+
+  // Height of the sticky site header, for `scroll-padding-top` below (keeps
+  // anchor-link targets — nav links, the hero's "#assortiment" CTA — from
+  // landing underneath the sticky header). The header shrinks on scroll, so
+  // there's no one correct static value: `site-header.tsx` measures its own
+  // real rendered height (`useElementHeight`) and overwrites this at
+  // runtime. The value here is only the fallback for the moment before that
+  // JS runs (e.g. first paint).
+  --header-height: 97px;
+
+  // Radius
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 20px;
+  --radius-xl: 32px;
+  --radius-pill: 999px;
+
+  // Shadows
+  --shadow-sm: 0 1px 2px rgba(43, 44, 36, 0.08);
+  --shadow-md: 0 4px 14px rgba(43, 44, 36, 0.1);
+  --shadow-lg: 0 12px 32px rgba(43, 44, 36, 0.14);
+  --shadow-inset: inset 0 1px 3px rgba(43, 44, 36, 0.08);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  // Offsets in-page anchor jumps (nav links, hero CTA) by the sticky
+  // header's height, so the target section's heading lands below the
+  // header instead of underneath it.
+  scroll-padding-top: var(--header-height);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--surface-page);
+  color: var(--text-body);
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  line-height: var(--lh-normal);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-tight);
+  margin: 0;
+}
+
+a {
+  color: var(--link);
+  text-decoration: underline;
+  text-decoration-color: var(--green-300);
+}
+
+a:hover {
+  color: var(--link-hover);
+  text-decoration-color: var(--orange-400);
+}

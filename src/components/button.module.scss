@@ -1,0 +1,97 @@
+// Ported from the design system's components/core/Button.jsx.
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-weight: var(--fw-semibold);
+  border-radius: var(--radius-sm);
+  border: none;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background 0.25s ease,
+    transform 0.25s ease;
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+}
+
+// Sizes
+
+.md {
+  padding: 12px 20px;
+  font-size: var(--fs-base);
+}
+
+.lg {
+  padding: 16px 28px;
+  font-size: var(--fs-md);
+}
+
+// Variants
+
+.primary {
+  background: var(--brand-primary);
+  color: var(--text-inverse);
+
+  // `color` is redeclared on every `:hover`/`:active` state below, not just
+  // inherited from the base rule above: when this component renders as an
+  // `<a>` (via the `href` prop), the global `a:hover { color: ... }` rule in
+  // global.scss has higher specificity than a bare `.primary` class rule
+  // and would otherwise override the button's text color on hover.
+  &:hover {
+    background: var(--brand-primary-hover);
+    color: var(--text-inverse);
+  }
+
+  &:active {
+    background: var(--brand-primary-active);
+    color: var(--text-inverse);
+  }
+}
+
+.secondary {
+  background: transparent;
+  // `--brand-primary-hover` (not `--brand-primary`) so this stays AAA (7:1)
+  // against every background it can appear on, including its own `:hover`
+  // background below (`--surface-sunken`) — `--brand-primary` only clears
+  // 7:1 against `--surface-page`/`--surface-card`, not `--surface-sunken`
+  // or `--green-100`.
+  color: var(--brand-primary-hover);
+  border: 1.5px solid var(--brand-primary-hover);
+
+  &:hover {
+    background: var(--surface-sunken);
+    color: var(--brand-primary-hover);
+  }
+}
+
+.accent {
+  // `--accent` itself (orange-500) only reaches ~2.7:1 with white text —
+  // `--orange-700` is the lightest step that still clears AA's 4.5:1 at
+  // these font sizes, so the background darkens one step rather than the
+  // text changing color. `--orange-800` for `:hover` darkens further, for
+  // the same darken-on-hover feedback every other button variant has.
+  background: var(--orange-700);
+  color: var(--text-inverse);
+
+  &:hover {
+    background: var(--orange-800);
+    color: var(--text-inverse);
+  }
+}

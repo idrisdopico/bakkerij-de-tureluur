@@ -1,0 +1,45 @@
+.heading {
+  font-family: var(--font-body);
+  max-width: 640px;
+  margin: 0;
+  text-align: left;
+}
+
+.center {
+  text-align: center;
+  margin: 0 auto;
+}
+
+.eyebrow {
+  // Full reset, not just margin-bottom: browsers apply a default
+  // margin-block to <p> that a <div> never had — left as-is it would add
+  // unwanted space above the eyebrow too.
+  margin: 0 0 10px;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  // Small text (12px), so needs AA's 4.5:1 wherever it lands — `--accent`
+  // itself doesn't clear that against `--green-100`, `--accent-text` does.
+  // (Not currently used by any caller, but kept AA-safe for when it is.)
+  color: var(--accent-text);
+}
+
+.title {
+  // Headings carry a large default margin in every browser's UA
+  // stylesheet; zero it out the same way the old <div> implicitly had none.
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-2xl);
+  color: var(--text-body);
+  line-height: var(--lh-tight);
+}
+
+.subtitle {
+  // See .eyebrow's comment — same default-<p>-margin reset.
+  margin: 10px 0 0;
+  font-size: var(--fs-md);
+  color: var(--text-muted);
+  line-height: var(--lh-normal);
+}

@@ -1,0 +1,47 @@
+@use '../styles/mixins' as mixins;
+
+.intro {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.iconBadge {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  margin-top: 4px;
+  border-radius: 50%;
+  background: var(--surface-card);
+  color: var(--brand-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.iconBadgeSunken {
+  background: var(--green-100);
+}
+
+.heading {
+  flex: 1;
+  min-width: 0;
+
+  // The design re-themes the heading per-section via local token overrides
+  // rather than a SectionHeading variant prop. `--text-muted` reads
+  // `--accent-text`, not `--accent` directly — the subtitle this feeds
+  // (`SectionHeading`'s `.subtitle`, normal-size text) needs AA's 4.5:1,
+  // which plain `--accent` doesn't clear against `--green-100`
+  // (Principles/Assortiment's background).
+  --text-body: var(--brand-primary);
+  --text-muted: var(--accent-text);
+
+  // Bumping the title to --fs-3xl (3rem/48px) is mobile-first *wrong*:
+  // unconditionally overriding --fs-2xl made every section title 48px even
+  // on narrow phones, where it doesn't fit well. Keep the un-overridden
+  // --fs-2xl (2.25rem) as the mobile default and only size up from the
+  // `medium` breakpoint.
+  @include mixins.media('>=medium') {
+    --fs-2xl: var(--fs-3xl);
+  }
+}

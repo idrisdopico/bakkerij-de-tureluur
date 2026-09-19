@@ -1,0 +1,58 @@
+.assortiment {
+  padding: 48px 0;
+  background: var(--green-100);
+}
+
+.container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.intro {
+  margin-top: 20px;
+  margin-bottom: 8px;
+}
+
+.subheading {
+  margin: 0 0 8px;
+  font-family: var(--font-display);
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-lg);
+  color: var(--text-body);
+}
+
+// Wraps Payload's `RichText` output (each intro is a single rich-text field
+// with two paragraphs, not two separately-classed `<p>`s) — spacing between
+// its paragraphs is nested here rather than the old `& + &` sibling pattern.
+.copy {
+  font-size: var(--fs-md);
+  color: var(--text-muted);
+  line-height: var(--lh-relaxed);
+
+  p {
+    margin: 14px 0 0;
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+}
+
+.overviewHeading {
+  margin: 28px 0 16px;
+  font-family: var(--font-display);
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-lg);
+  color: var(--text-body);
+}
+
+.grid {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  align-items: stretch;
+}

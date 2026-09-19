@@ -1,0 +1,70 @@
+.footer {
+  background: var(--surface-inverse);
+  color: var(--text-inverse);
+  font-family: var(--font-body);
+
+  // The design sets every link in the footer to `color: inherit` so links
+  // blend with the surrounding light text on the dark inverse background
+  // instead of using the default (dark-green, made for light backgrounds)
+  // link color. `:hover` is redeclared too, for the same specificity reason
+  // as `.email` in contact.module.scss.
+  a {
+    color: inherit;
+
+    &:hover {
+      color: inherit;
+    }
+  }
+}
+
+.container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 48px 20px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.brandName {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-semibold);
+}
+
+.tagline {
+  margin: 6px 0 0;
+  font-size: var(--fs-base);
+  font-style: italic;
+  opacity: 0.9;
+}
+
+.grid {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+}
+
+.label {
+  margin: 0 0 6px;
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-sm);
+  opacity: 0.95;
+}
+
+.value {
+  margin: 0;
+  font-size: var(--fs-sm);
+  line-height: var(--lh-relaxed);
+  // The design's 0.8 only clears AAA's 7:1 (against `--surface-inverse`) by
+  // ~0.2 — too thin a margin to trust. 0.9 gives real headroom (~8.6:1).
+  opacity: 0.9;
+}
+
+.address {
+  // Browsers italicize <address> by default; the design renders this as
+  // plain text like the other footer values.
+  font-style: normal;
+}

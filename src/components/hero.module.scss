@@ -1,0 +1,78 @@
+.hero {
+  position: relative;
+  min-height: 80vh;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+
+.imageLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  object-fit: cover;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    180deg,
+    rgba(32, 48, 31, 0.15) 0%,
+    rgba(32, 48, 31, 0.85) 100%
+  );
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  padding: 40px 20px 44px;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  width: 100%;
+}
+
+.heading {
+  font-size: 2rem;
+  color: var(--cream-50);
+  margin: 0 0 14px;
+}
+
+.tagline {
+  margin: 0;
+  font-size: var(--fs-md);
+  font-weight: var(--fw-medium);
+  // ~6:1 against the gradient's dark end (approximated from the overlay
+  // color alone) — short of AAA's 7:1, but clears AA's 4.5:1 with room to
+  // spare, and the overlay is heavy enough at this end that real photos
+  // shouldn't swing it much.
+  color: var(--orange-400);
+}
+
+.actions {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.action {
+  flex: 1 1 50%;
+}
+
+// The "secondary" button reads as a light outline button when placed over
+// the dark end of the hero overlay: locally override the tokens its
+// variant styles read from (see button.module.scss's `.secondary`, which
+// reads `--brand-primary-hover` rather than `--brand-primary` for AAA
+// contrast — both must be overridden here or the button would fall back to
+// the real (dark, low-contrast-on-dark-overlay) `--brand-primary-hover`).
+.actionOnDark {
+  --brand-primary: var(--cream-50);
+  --brand-primary-hover: var(--cream-50);
+  --surface-sunken: var(--green-800);
+}
+
+.actionButtonFull {
+  width: 100%;
+}

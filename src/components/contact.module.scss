@@ -1,0 +1,30 @@
+.contact {
+  padding: 48px 20px;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  background: var(--surface-page);
+}
+
+.copy {
+  margin: 24px 0 0;
+  font-size: var(--fs-md);
+  color: var(--text-muted);
+  line-height: var(--lh-relaxed);
+}
+
+.email {
+  display: inline-block;
+  margin-top: 8px;
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-semibold);
+  color: var(--brand-primary);
+
+  // Redeclared on `:hover` (not just inherited from the base rule above):
+  // the global `a:hover` rule in global.scss has higher specificity than a
+  // bare `.email` class rule and would otherwise override this on hover —
+  // see button.module.scss for the fuller writeup of this pattern.
+  &:hover {
+    color: var(--brand-primary-hover);
+  }
+}

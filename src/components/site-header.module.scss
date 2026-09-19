@@ -1,0 +1,292 @@
+// Mobile-first: every rule below is written for small screens by default.
+// Desktop is layered on top via `@media (min-width: $nav-breakpoint)`,
+// matching the design's `isMobile: window.innerWidth < 860` split.
+$nav-breakpoint: 860px;
+
+// The sticky bar's height isn't hardcoded anywhere — it changes between the
+// unscrolled and `[data-scrolled='true']` states below, so `site-header.tsx`
+// measures it live (`useElementHeight`) and writes it to `--header-height`
+// (global.scss) itself, which `html`'s `scroll-padding-top` reads.
+
+.header {
+  position: sticky;
+  top: 0;
+  // Above .mobileNav so the header — and the toggle button, now showing an
+  // X — stays visible and usable while the full-screen menu is open.
+  z-index: 30;
+  background: var(--surface-sunken);
+  // `--shadow-md` (a wider, softer spread than `--shadow-sm`) reads as a
+  // shadow lifting the header off the page; a `border-bottom` here would
+  // compete with that by adding a second, harder line right against it.
+  box-shadow: var(--shadow-md);
+
+  // Slightly shrinks the bar/logo/title once the page has scrolled past
+  // the top (see `useScrolled` in site-header.tsx) — saves some vertical
+  // space for the content below without the header disappearing outright.
+  // `--header-height`/scrollspy's `topOffset` are still sized for the full
+  // (unscrolled) height; the small mismatch just means a little extra
+  // breathing room above a scrolled-to section, never an overlap, so it's
+  // not worth the complexity of recalculating them on scroll.
+  &[data-scrolled='true'] {
+    .bar {
+      padding: 8px 20px;
+    }
+
+    .logo {
+      height: 44px;
+      width: 44px;
+    }
+
+    .title {
+      font-size: var(--fs-base);
+    }
+  }
+}
+
+.bar {
+  // Positioned + explicitly z-indexed so it wins the stacking-order
+  // comparison against .mobileNav below (its child, a fixed-position
+  // sibling in the header's own stacking context): an unpositioned element
+  // like this one used to be, always paints beneath *any* positioned,
+  // z-indexed descendant regardless of the actual numbers, which is why the
+  // toggle button (and its X) was getting hidden under the full-screen
+  // overlay. This must stay numerically above .mobileNav's z-index.
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  transition: padding 0.25s ease;
+}
+
+.logoLink {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+
+  &:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+}
+
+.logo {
+  flex: none;
+  height: 68px;
+  width: 68px;
+  object-fit: contain;
+  transition:
+    height 0.25s ease,
+    width 0.25s ease;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-md);
+  // `--brand-primary` alone falls short of AAA (7:1) at this size against
+  // the header's `--surface-sunken` background (~6.6:1); `-hover` clears it.
+  color: var(--brand-primary-hover);
+  transition: font-size 0.25s ease;
+}
+
+// Mobile-first: the row of text links is desktop-only chrome, so it's
+// hidden until the breakpoint.
+.desktopNav {
+  display: none;
+  align-items: center;
+  gap: 28px;
+
+  @media (min-width: $nav-breakpoint) {
+    display: flex;
+  }
+}
+
+.desktopLink {
+  font-size: var(--fs-base);
+  font-weight: var(--fw-medium);
+  text-decoration: none;
+  color: var(--text-body);
+  border-bottom: 2px solid transparent;
+  padding-bottom: 4px;
+  transition:
+    color 0.25s ease,
+    border-color 0.25s ease;
+
+  // Both states below use `--brand-primary-hover`, not `--brand-primary` —
+  // same AAA-against-`--surface-sunken` reasoning as `.title` above.
+  &:hover {
+    color: var(--brand-primary-hover);
+    border-color: var(--green-300);
+  }
+
+  &[data-active='true'] {
+    color: var(--brand-primary-hover);
+    border-bottom-color: var(--brand-primary-hover);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+}
+
+// Mobile-first: the hamburger is the default nav trigger, hidden once the
+// desktop link row takes over.
+.menuToggle {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+
+  @media (min-width: $nav-breakpoint) {
+    display: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+}
+
+.menuToggleLine {
+  width: 22px;
+  height: 2px;
+  background: var(--text-body);
+  transition:
+    transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.25s ease;
+
+  // Open state: top and bottom lines rotate into an X, the middle line
+  // fades out.
+  &[data-open='true'] {
+    &:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    &:nth-child(2) {
+      opacity: 0;
+    }
+
+    &:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+  }
+}
+
+// Hover affordance on the *closed* hamburger: the middle line gives a
+// small side-to-side nudge. Gated on aria-expanded='false' so it can never
+// run mid-way through the open (X) transform.
+@keyframes menu-line-nudge {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(4px);
+  }
+}
+
+.menuToggle:hover[aria-expanded='false'] .menuToggleLine:nth-child(2) {
+  animation: menu-line-nudge 0.25s ease-in-out 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menuToggleLine {
+    transition: opacity 0.25s ease;
+  }
+
+  .menuToggle:hover[aria-expanded='false'] .menuToggleLine:nth-child(2) {
+    animation: none;
+  }
+}
+
+// Mobile-first, full-screen overlay. Stays mounted (see the `inert` prop in
+// site-header.tsx) so open/close can transition instead of snapping —
+// `visibility` is delayed on close so it's un-interactable and invisible to
+// assistive tech the instant it's closed, without cutting the fade short.
+.mobileNav {
+  position: fixed;
+  inset: 0;
+  // Below .bar's z-index: 2 (see the comment there) so the toggle
+  // button/X stays visible and clickable above this overlay.
+  z-index: 1;
+  padding: calc(var(--header-height) + 24px) 24px 32px;
+  background: var(--surface-page);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-8px);
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease,
+    visibility 0s linear 0.25s;
+
+  &[data-open='true'] {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+    transition:
+      opacity 0.25s ease,
+      transform 0.25s ease,
+      visibility 0s linear 0s;
+  }
+
+  @media (min-width: $nav-breakpoint) {
+    // Safety net: if the viewport crosses the breakpoint while open (e.g. a
+    // resize), the overlay is force-hidden rather than stranded open with
+    // no way to reach it (the toggle that opens/closes it is desktop-hidden
+    // too).
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition:
+      opacity 0.25s ease,
+      visibility 0s linear 0.25s;
+
+    &[data-open='true'] {
+      transition:
+        opacity 0.25s ease,
+        visibility 0s linear 0s;
+    }
+  }
+}
+
+.mobileLink {
+  padding: 16px 4px;
+  font-family: var(--font-display);
+  font-size: var(--fs-2xl);
+  font-weight: var(--fw-semibold);
+  text-decoration: none;
+  color: var(--text-body);
+
+  &:hover {
+    color: var(--brand-primary);
+  }
+
+  &[data-active='true'] {
+    color: var(--brand-primary);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+}
