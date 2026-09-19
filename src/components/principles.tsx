@@ -1,4 +1,5 @@
-import { getPrinciples } from '../backend/lib/content';
+import { getPrinciples } from '@/backend/lib/content';
+
 import styles from './principles.module.scss';
 import { SectionIntro } from './section-intro';
 

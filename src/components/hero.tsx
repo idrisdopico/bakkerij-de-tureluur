@@ -1,7 +1,8 @@
 import Image from 'next/image';
 
-import { getHero } from '../backend/lib/content';
-import { cn } from '../lib/utils/cn';
+import { getHero } from '@/backend/lib/content';
+import { cn } from '@/lib/utils/cn';
+
 import { Button } from './button';
 import styles from './hero.module.scss';
 

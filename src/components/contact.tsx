@@ -1,6 +1,7 @@
 import { Birdhouse } from 'lucide-react';
 
-import { getContact } from '../backend/lib/content';
+import { getContact } from '@/backend/lib/content';
+
 import styles from './contact.module.scss';
 import { SectionIntro } from './section-intro';
 

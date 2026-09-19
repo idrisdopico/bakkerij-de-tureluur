@@ -18,9 +18,9 @@ Each rule is tagged **[lint]** (ESLint-enforced), **[prettier]** (formatter-owne
 ## Imports
 
 - **[lint]** **Named exports only — no default exports** (Next.js special files like `page.tsx`, `layout.tsx`, `not-found.tsx` are the required exception).
-- **[prettier]** **Import order is tooling-owned** by `@trivago/prettier-plugin-sort-imports` (`.prettierrc.js`): third-party → `@/*` aliases → relative `./`, blank-line separated. Don't hand-order — ESLint's `import/order` is intentionally off. Just run `pnpm format:fix`.
+- **[prettier]** **Import order is tooling-owned** by `@trivago/prettier-plugin-sort-imports` (`.prettierrc.cjs`): third-party → `@/*` aliases → relative `./`, blank-line separated. Don't hand-order — ESLint's `import/order` is intentionally off. Just run `pnpm format:fix`.
 - **[lint]** Use `import type { ... }` for type-only imports.
-- **[convention]** Prefer the `@/*` alias over long relative paths (`../../../`); reserve `./` for co-located files.
+- **[convention]** **Import path rule:** use the `@/*` alias for any import that crosses into a different top-level `src/` area (`app`, `backend`, `components`, `hooks`, `lib`, `styles`, or a root file like `payload-types`); use a relative path only within the same area. So a component importing a hook → `@/hooks/...`; a `src/backend/globals/*` importing `../hooks/revalidate` (backend's own `hooks/`) stays relative; a co-located file is `./`.
 
 ## TypeScript
 

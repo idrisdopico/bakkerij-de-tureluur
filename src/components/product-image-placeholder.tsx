@@ -1,4 +1,5 @@
-import { cn } from '../lib/utils/cn';
+import { cn } from '@/lib/utils/cn';
+
 import styles from './product-image-placeholder.module.scss';
 
 export type ProductImagePlaceholderProps = {

@@ -5,7 +5,8 @@ import type {
   ReactNode,
 } from 'react';
 
-import { cn } from '../lib/utils/cn';
+import { cn } from '@/lib/utils/cn';
+
 import styles from './button.module.scss';
 
 type Variant = 'primary' | 'secondary' | 'accent';

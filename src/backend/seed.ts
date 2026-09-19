@@ -4,7 +4,8 @@ import path from 'path';
 import { getPayload } from 'payload';
 import { fileURLToPath } from 'url';
 
-import type { About, Assortiment } from '../payload-types';
+import type { About, Assortiment } from '@/payload-types';
+
 import { richTextFromParagraphs } from './lib/rich-text';
 
 const filename = fileURLToPath(import.meta.url);

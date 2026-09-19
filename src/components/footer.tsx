@@ -1,6 +1,7 @@
 import { Fragment } from 'react';
 
-import { getContact, getFooter } from '../backend/lib/content';
+import { getContact, getFooter } from '@/backend/lib/content';
+
 import styles from './footer.module.scss';
 
 /**

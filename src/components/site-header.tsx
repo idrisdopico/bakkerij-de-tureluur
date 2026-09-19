@@ -4,12 +4,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 
-import { useActiveSection } from '../hooks/use-active-section';
-import { useBodyScrollLock } from '../hooks/use-body-scroll-lock';
-import { useElementHeight } from '../hooks/use-element-height';
-import { useEscapeKey } from '../hooks/use-escape-key';
-import { useHasScrolled } from '../hooks/use-has-scrolled';
-import { useScrolled } from '../hooks/use-scrolled';
+import { useActiveSection } from '@/hooks/use-active-section';
+import { useBodyScrollLock } from '@/hooks/use-body-scroll-lock';
+import { useElementHeight } from '@/hooks/use-element-height';
+import { useEscapeKey } from '@/hooks/use-escape-key';
+import { useHasScrolled } from '@/hooks/use-has-scrolled';
+import { useScrolled } from '@/hooks/use-scrolled';
+
 import { CartButton } from './cart/cart-button';
 import styles from './site-header.module.scss';
 

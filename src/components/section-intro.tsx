@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 
-import { cn } from '../lib/utils/cn';
+import { cn } from '@/lib/utils/cn';
+
 import { SectionHeading } from './section-heading';
 import styles from './section-intro.module.scss';
 

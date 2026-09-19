@@ -1,7 +1,8 @@
 import { RichText } from '@payloadcms/richtext-lexical/react';
 import { Croissant } from 'lucide-react';
 
-import { getAssortimentIntro, getProducts } from '../backend/lib/content';
+import { getAssortimentIntro, getProducts } from '@/backend/lib/content';
+
 import styles from './assortiment.module.scss';
 import { ProductCard } from './product-card';
 import { SectionIntro } from './section-intro';

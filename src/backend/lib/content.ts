@@ -7,7 +7,8 @@ import type {
   Hero,
   Principles,
   Product,
-} from '../../payload-types';
+} from '@/payload-types';
+
 import { getPayloadClient } from './payload-client';
 
 /**

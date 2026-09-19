@@ -1,4 +1,4 @@
-import { getContact, getFooter } from '../backend/lib/content';
+import { getContact, getFooter } from '@/backend/lib/content';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';
 

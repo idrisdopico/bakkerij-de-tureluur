@@ -2,13 +2,13 @@ import type { Metadata } from 'next';
 import { Mulish, Source_Serif_4 } from 'next/font/google';
 import type { ReactNode } from 'react';
 
-import { getBestellen, getContact, getHero } from '../../backend/lib/content';
-import { CartProvider } from '../../components/cart/cart-context';
-import { CartOverlay } from '../../components/cart/cart-overlay';
-import { Footer } from '../../components/footer';
-import { SiteHeader } from '../../components/site-header';
-import { StructuredData } from '../../components/structured-data';
-import '../../styles/global.scss';
+import { getBestellen, getContact, getHero } from '@/backend/lib/content';
+import { CartProvider } from '@/components/cart/cart-context';
+import { CartOverlay } from '@/components/cart/cart-overlay';
+import { Footer } from '@/components/footer';
+import { SiteHeader } from '@/components/site-header';
+import { StructuredData } from '@/components/structured-data';
+import '@/styles/global.scss';
 
 // Self-hosted at build via next/font (no render-blocking Google Fonts request),
 // exposed as CSS variables the `--font-display` / `--font-body` tokens read.

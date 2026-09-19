@@ -1,6 +1,7 @@
 import Image from 'next/image';
 
-import type { Product as PayloadProduct } from '../payload-types';
+import type { Product as PayloadProduct } from '@/payload-types';
+
 import { AddToCartButton } from './cart/add-to-cart-button';
 import styles from './product-card.module.scss';
 import { ProductImagePlaceholder } from './product-image-placeholder';

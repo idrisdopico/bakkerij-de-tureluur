@@ -1,7 +1,8 @@
 import { RichText } from '@payloadcms/richtext-lexical/react';
 import { Bird } from 'lucide-react';
 
-import { getAbout } from '../backend/lib/content';
+import { getAbout } from '@/backend/lib/content';
+
 import styles from './about.module.scss';
 import { SectionIntro } from './section-intro';
 
