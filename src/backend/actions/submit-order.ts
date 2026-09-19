@@ -2,10 +2,9 @@
 
 import { headers } from 'next/headers';
 
-import { verifyTurnstile } from '@/lib/turnstile';
-
 import { getBestellen, getProductsByIds } from '../lib/content';
 import { sendEmail } from '../lib/email';
+import { verifyTurnstile } from '../lib/turnstile';
 import type { SubmitOrderInput, SubmitOrderResult } from './order-types';
 
 // Bounds that keep a submission (and the resulting email) sane, and stop a
