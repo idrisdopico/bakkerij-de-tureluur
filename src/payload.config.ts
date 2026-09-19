@@ -21,6 +21,19 @@ import { Principles } from './backend/globals/principles';
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
+// Fail fast on missing critical config rather than booting with an empty
+// string — an empty `secret` silently disables meaningful cookie/token signing,
+// and an empty `connectionString` defers a confusing failure to the first query.
+const requireEnv = (name: string): string => {
+  const value = process.env[name];
+  if (!value) {
+    throw new Error(
+      `Missing required environment variable ${name}. Set it in your .env (see .env.example).`,
+    );
+  }
+  return value;
+};
+
 /**
  * This file is deliberately thin — a single composition root that wires
  * together the collections/globals/access/hooks defined under
@@ -47,7 +60,7 @@ export default buildConfig({
   collections: [Users, Media, Products],
   globals: [Hero, Principles, About, Assortiment, Contact, Footer, Bestellen],
   editor: lexicalEditor(),
-  secret: process.env.PAYLOAD_SECRET || '',
+  secret: requireEnv('PAYLOAD_SECRET'),
   // Email is only wired up when SMTP credentials are present (a real Gmail
   // App Password, set in production / a configured `.env`). Without them —
   // local development, most likely — Payload falls back to logging emails to
@@ -76,7 +89,7 @@ export default buildConfig({
   },
   db: postgresAdapter({
     pool: {
-      connectionString: process.env.DATABASE_URL || '',
+      connectionString: requireEnv('DATABASE_URL'),
     },
   }),
   sharp,
