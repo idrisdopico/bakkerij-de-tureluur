@@ -10,6 +10,7 @@ import { useElementHeight } from '../hooks/use-element-height';
 import { useEscapeKey } from '../hooks/use-escape-key';
 import { useHasScrolled } from '../hooks/use-has-scrolled';
 import { useScrolled } from '../hooks/use-scrolled';
+import { CartButton } from './cart/cart-button';
 import styles from './site-header.module.scss';
 
 type NavLink = {
@@ -158,17 +159,20 @@ export function SiteHeader({ title }: SiteHeaderProps) {
           ))}
         </nav>
 
-        <button
-          ref={toggleRef}
-          type="button"
-          className={styles.menuToggle}
-          aria-label={isMenuOpen ? 'Sluit menu' : 'Open menu'}
-          aria-expanded={isMenuOpen}
-          onClick={() => (isMenuOpen ? closeMenu() : setIsMenuOpen(true))}>
-          <span className={styles.menuToggleLine} data-open={isMenuOpen} />
-          <span className={styles.menuToggleLine} data-open={isMenuOpen} />
-          <span className={styles.menuToggleLine} data-open={isMenuOpen} />
-        </button>
+        <div className={styles.actions}>
+          <CartButton />
+          <button
+            ref={toggleRef}
+            type="button"
+            className={styles.menuToggle}
+            aria-label={isMenuOpen ? 'Sluit menu' : 'Open menu'}
+            aria-expanded={isMenuOpen}
+            onClick={() => (isMenuOpen ? closeMenu() : setIsMenuOpen(true))}>
+            <span className={styles.menuToggleLine} data-open={isMenuOpen} />
+            <span className={styles.menuToggleLine} data-open={isMenuOpen} />
+            <span className={styles.menuToggleLine} data-open={isMenuOpen} />
+          </button>
+        </div>
       </div>
 
       <nav

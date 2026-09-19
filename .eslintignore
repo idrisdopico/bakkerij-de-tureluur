@@ -3,3 +3,6 @@ node_modules
 dist
 coverage
 next-env.d.ts
+src/payload-types.ts
+# Payload-generated admin scaffolding (importMap, catch-all routes) — not hand-authored.
+src/app/(payload)/

@@ -1,4 +1,5 @@
 import { postgresAdapter } from '@payloadcms/db-postgres';
+import { nodemailerAdapter } from '@payloadcms/email-nodemailer';
 import { lexicalEditor } from '@payloadcms/richtext-lexical';
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob';
 import path from 'path';
@@ -11,6 +12,7 @@ import { Products } from './backend/collections/products';
 import { Users } from './backend/collections/users';
 import { About } from './backend/globals/about';
 import { Assortiment } from './backend/globals/assortiment';
+import { Bestellen } from './backend/globals/bestellen';
 import { Contact } from './backend/globals/contact';
 import { Footer } from './backend/globals/footer';
 import { Hero } from './backend/globals/hero';
@@ -43,9 +45,32 @@ export default buildConfig({
     },
   },
   collections: [Users, Media, Products],
-  globals: [Hero, Principles, About, Assortiment, Contact, Footer],
+  globals: [Hero, Principles, About, Assortiment, Contact, Footer, Bestellen],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
+  // Email is only wired up when SMTP credentials are present (a real Gmail
+  // App Password, set in production / a configured `.env`). Without them —
+  // local development, most likely — Payload falls back to logging emails to
+  // the console, so `payload.sendEmail` still works without a mail server,
+  // and startup doesn't fail trying to verify an unconfigured transport. The
+  // order flow (`src/backend/actions/submit-order.ts`) always sends to the
+  // fixed `ORDER_TO_EMAIL`, never a customer-supplied address.
+  email:
+    process.env.SMTP_USER && process.env.SMTP_PASS
+      ? nodemailerAdapter({
+          defaultFromAddress: process.env.SMTP_USER,
+          defaultFromName: 'Bakkerij de Tureluur',
+          transportOptions: {
+            host: 'smtp.gmail.com',
+            port: 465,
+            secure: true,
+            auth: {
+              user: process.env.SMTP_USER,
+              pass: process.env.SMTP_PASS,
+            },
+          },
+        })
+      : undefined,
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },

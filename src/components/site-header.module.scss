@@ -135,6 +135,13 @@ $nav-breakpoint: 860px;
   }
 }
 
+// Right-hand cluster: the cart button, plus the hamburger on mobile.
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
 // Mobile-first: the hamburger is the default nav trigger, hidden once the
 // desktop link row takes over.
 .menuToggle {

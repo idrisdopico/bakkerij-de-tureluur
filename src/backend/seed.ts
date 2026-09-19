@@ -246,6 +246,17 @@ async function seed() {
     },
   });
 
+  payload.logger.info('Seeding bestellen...');
+  await payload.updateGlobal({
+    slug: 'bestellen',
+    data: {
+      ordersEnabled: true,
+      pickupDays: [{ day: 'Zaterdag' }, { day: 'Zondag' }],
+      pickupPolicy:
+        'Haal je bestelling vóór 13.00 uur op. Daarna kunnen we bestelde producten aan andere klanten verkopen om verspilling te voorkomen. Je ontvangt geen automatische bevestiging — we lezen elke bestelling zelf en nemen contact op als er iets onduidelijk is.',
+    },
+  });
+
   payload.logger.info('Seed complete.');
 }
 

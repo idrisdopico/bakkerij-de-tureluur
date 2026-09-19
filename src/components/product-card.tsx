@@ -1,6 +1,7 @@
 import Image from 'next/image';
 
 import type { Product as PayloadProduct } from '../payload-types';
+import { AddToCartButton } from './cart/add-to-cart-button';
 import styles from './product-card.module.scss';
 import { ProductImagePlaceholder } from './product-image-placeholder';
 
@@ -42,6 +43,11 @@ export function ProductCard({ product }: ProductCardProps) {
         <h4 className={styles.name}>{product.naam}</h4>
         <p className={styles.ingredients}>{product.ingr}</p>
         <p className={styles.weight}>{product.gewicht}</p>
+        <AddToCartButton
+          productId={product.id}
+          naam={product.naam}
+          gewicht={product.gewicht}
+        />
       </div>
     </li>
   );

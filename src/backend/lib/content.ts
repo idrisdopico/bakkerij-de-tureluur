@@ -1,6 +1,7 @@
 import type {
   About,
   Assortiment,
+  Bestellen,
   Contact,
   Footer,
   Hero,
@@ -48,6 +49,25 @@ export async function getProducts(): Promise<Product[]> {
   return docs;
 }
 
+/**
+ * Fetches only the products with the given ids — used by the order action to
+ * re-derive canonical product data (name, weight) from a submitted cart,
+ * rather than trusting anything the client sent.
+ */
+export async function getProductsByIds(ids: number[]): Promise<Product[]> {
+  if (ids.length === 0) {
+    return [];
+  }
+  const payload = await getPayloadClient();
+  const { docs } = await payload.find({
+    collection: 'products',
+    where: { id: { in: ids } },
+    limit: ids.length,
+    depth: 0,
+  });
+  return docs;
+}
+
 export async function getContact(): Promise<Contact> {
   const payload = await getPayloadClient();
   return payload.findGlobal({ slug: 'contact' });
@@ -56,4 +76,9 @@ export async function getContact(): Promise<Contact> {
 export async function getFooter(): Promise<Footer> {
   const payload = await getPayloadClient();
   return payload.findGlobal({ slug: 'footer' });
+}
+
+export async function getBestellen(): Promise<Bestellen> {
+  const payload = await getPayloadClient();
+  return payload.findGlobal({ slug: 'bestellen' });
 }

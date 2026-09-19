@@ -31,6 +31,7 @@
     "@neon/config": "^1.7.2",
     "@neon/env": "^1.4.3",
     "@payloadcms/db-postgres": "^3.89.0",
+    "@payloadcms/email-nodemailer": "^3.90.1",
     "@payloadcms/next": "^3.89.0",
     "@payloadcms/richtext-lexical": "^3.89.0",
     "@payloadcms/storage-vercel-blob": "^3.89.0",
