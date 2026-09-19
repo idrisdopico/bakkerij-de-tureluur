@@ -49,7 +49,7 @@ export function SiteHeader({ title }: SiteHeaderProps) {
   };
 
   useBodyScrollLock(isMenuOpen);
-  useEscapeKey(isMenuOpen, closeMenu);
+  useEscapeKey({ isActive: isMenuOpen, onEscape: closeMenu });
 
   const isScrolled = useScrolled();
 

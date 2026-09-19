@@ -42,7 +42,7 @@ export function Dialog({
   const panelRef = useRef<HTMLDivElement>(null);
 
   useBodyScrollLock(isOpen);
-  useEscapeKey(isOpen, onClose);
+  useEscapeKey({ isActive: isOpen, onEscape: onClose });
   useFocusTrap({ ref: panelRef, isActive: isOpen });
 
   return (

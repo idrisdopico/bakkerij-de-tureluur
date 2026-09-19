@@ -1,10 +1,16 @@
 import { useEffect } from 'react';
 
+type UseEscapeKeyParams = {
+  isActive: boolean;
+  onEscape: () => void;
+};
+
 /**
  * Calls `onEscape` when Escape is pressed while `isActive` is true. Used to
- * close the full-screen mobile nav overlay from the keyboard.
+ * close overlays (the mobile nav, the cart drawer, the confirmation modal)
+ * from the keyboard.
  */
-export function useEscapeKey(isActive: boolean, onEscape: () => void): void {
+export function useEscapeKey({ isActive, onEscape }: UseEscapeKeyParams): void {
   useEffect(() => {
     if (!isActive) {
       return;
