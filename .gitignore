@@ -31,10 +31,10 @@ next-env.d.ts
 # vercel
 .vercel
 
-# payload — generated from src/payload.config.ts + the collections/globals
-# under src/backend/, regenerated automatically by `pnpm dev` (or
-# `pnpm payload generate:types`); not meant to be hand-edited or committed.
-/src/payload-types.ts
+# payload — `src/payload-types.ts` is generated (regenerate with
+# `pnpm generate:types` after a schema change) but IS committed: the production
+# build on Vercel imports `@/payload-types` and can't regenerate it there, same
+# reason the generated admin importMap.js is committed. Don't hand-edit it.
 
 # payload — local-disk upload storage, used only when BLOB_READ_WRITE_TOKEN
 # isn't set (see src/payload.config.ts). The media collection sets no
