@@ -59,10 +59,53 @@ module.exports = {
         'react/button-has-type': 'off',
       },
     },
+    {
+      // UI components must not reach the CMS directly — enforce the data seam.
+      files: ['src/components/**/*.ts', 'src/components/**/*.tsx'],
+      rules: {
+        'no-restricted-imports': [
+          'error',
+          {
+            paths: [
+              {
+                name: 'payload',
+                message:
+                  'Read data through src/backend/lib/content.ts, not the Payload API, from UI code.',
+              },
+              {
+                name: '@payload-config',
+                message: 'Do not import the Payload config into UI code.',
+              },
+            ],
+          },
+        ],
+      },
+    },
   ],
   rules: {
     '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
     // Import order is owned by @trivago/prettier-plugin-sort-imports.
     'import/order': 'off',
+    // The Payload instance is reached only through the lib data layer
+    // (content.ts / email.ts); UI must not import the client directly.
+    'import/no-restricted-paths': [
+      'error',
+      {
+        zones: [
+          {
+            target: './src/components',
+            from: './src/backend/lib/payload-client.ts',
+            message:
+              'Read data through src/backend/lib/content.ts, not the Payload client directly.',
+          },
+          {
+            target: './src/app/(frontend)',
+            from: './src/backend/lib/payload-client.ts',
+            message:
+              'Read data through src/backend/lib/content.ts, not the Payload client directly.',
+          },
+        ],
+      },
+    ],
   },
 };
