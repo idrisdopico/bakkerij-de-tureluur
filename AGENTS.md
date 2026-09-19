@@ -127,7 +127,7 @@ feat|fix|chore|refactor|ci|revert: description
 ## Performance
 
 - `tsconfig.json` has `noUnusedLocals`/`noUnusedParameters` on, so `pnpm typecheck` catches dead code (unused variables, params, imports) as a build error, not just a lint warning — keep both enabled.
-- Only `src/components/site-header.tsx` is a client component (`'use client'`) — it's the only one with real interactivity (menu state, scrollspy). Everything else renders server-side by default; don't add `'use client'` to a component unless it actually needs state, effects, or browser APIs.
+- Client components (`'use client'`) are limited to two zones: `src/components/site-header.tsx` (menu state, scrollspy) and the cart cluster under `src/components/cart/` (basket state, drawer/modal, checkout). Everything else renders server-side by default; don't add `'use client'` to a component unless it actually needs state, effects, or browser APIs.
 - Images: `next.config.mjs` sets `images.formats` to serve AVIF/WebP (smaller than the source format) wherever the browser supports it. Keep source images reasonably sized for how they're actually displayed — `public/logo.png` was originally a 3213×2296 export rendered at 68×68 CSS px; it's now downscaled to 256×183 (~4x the display size, enough headroom for high-DPI screens) rather than shipping an oversized source for Next's optimizer to resize on every request. Above-the-fold images (`hero.tsx`'s background, the header logo) use `priority` so they're not lazy-loaded; everything else lazy-loads by default (next/image's default), which is correct for below-the-fold content like the product grid.
 
 ## Backend (Payload CMS)
@@ -163,7 +163,7 @@ Copy `.env.example` to `.env` (gitignored) and fill in:
 
 - `PAYLOAD_SECRET` — signs tokens/session cookies. Generate with e.g. `openssl rand -base64 32`; keep it stable across deploys.
 - `DATABASE_URL` — a Postgres connection string (Neon, Vercel Postgres, or any Postgres host).
-- `BLOB_READ_WRITE_TOKEN` — only needed for Vercel Blob storage in production. Without it, `src/payload.config.ts` falls back to Payload's default local-disk storage under `public/media` (gitignored), so uploads work locally without provisioning Blob storage just to run `pnpm dev`.
+- `BLOB_READ_WRITE_TOKEN` — only needed for Vercel Blob storage in production. Without it, `src/payload.config.ts` falls back to Payload's default local-disk storage in a top-level `/media` directory (gitignored), so uploads work locally without provisioning Blob storage just to run `pnpm dev`.
 
 ### Seeding
 

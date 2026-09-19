@@ -47,8 +47,9 @@ const requireEnv = (name: string): string => {
  * File storage: Vercel Blob is only wired in when `BLOB_READ_WRITE_TOKEN` is
  * set (i.e. in a real Vercel deployment with Blob storage attached).
  * Without it — local development, most likely — Payload falls back to its
- * default local-disk storage under `public/media`, so uploads work locally
- * without needing a Blob store just to run `pnpm dev`.
+ * default local-disk storage in a top-level `/media` directory (the Media
+ * collection sets no `staticDir`), so uploads work locally without needing a
+ * Blob store just to run `pnpm dev`.
  */
 export default buildConfig({
   admin: {

@@ -9,7 +9,7 @@ const nextConfig = {
     // on what the requesting browser's `Accept` header supports.
     formats: ['image/avif', 'image/webp'],
     // Payload-managed images live outside `public/` once uploaded: Vercel
-    // Blob in production (see `src/backend/payload.config.ts`), or this
+    // Blob in production (see `src/payload.config.ts`), or this
     // app's own `/api/media/file/...` route locally. Both need to be
     // allow-listed for `next/image` to optimize them.
     remotePatterns: [
