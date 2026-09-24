@@ -35,6 +35,32 @@ const requireEnv = (name: string): string => {
 };
 
 /**
+ * Builds the Postgres pool config with SSL resolved explicitly, instead of
+ * leaving it to the `sslmode=` query param in `DATABASE_URL`.
+ *
+ * `pg-connection-string` currently treats `sslmode=prefer|require|verify-ca`
+ * as `verify-full` (full certificate verification), but warns at startup that
+ * a future major will switch them to weaker libpq semantics. We pin today's
+ * strong behaviour by reading the mode ourselves, translating it to an
+ * explicit `ssl` option, and dropping the param from the string — so the
+ * connection can't silently downgrade later, and the warning goes away.
+ */
+const buildDbPool = () => {
+  const url = new URL(requireEnv('DATABASE_URL'));
+  const sslmode = url.searchParams.get('sslmode');
+  url.searchParams.delete('sslmode');
+
+  const ssl =
+    sslmode === null || sslmode === 'disable'
+      ? undefined
+      : sslmode === 'no-verify'
+        ? { rejectUnauthorized: false }
+        : { rejectUnauthorized: true };
+
+  return { connectionString: url.toString(), ssl };
+};
+
+/**
  * This file is deliberately thin — a single composition root that wires
  * together the collections/globals/access/hooks defined under
  * `src/backend/`, plus which database and file storage to use. It lives at
@@ -89,9 +115,7 @@ export default buildConfig({
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
   db: postgresAdapter({
-    pool: {
-      connectionString: requireEnv('DATABASE_URL'),
-    },
+    pool: buildDbPool(),
   }),
   sharp,
   plugins: process.env.BLOB_READ_WRITE_TOKEN
