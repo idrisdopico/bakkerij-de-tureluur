@@ -1,0 +1,12 @@
+.notice {
+  margin: 0 0 16px;
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-default);
+  background: var(--surface-card);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  // `--text-body` is AAA against the white card background.
+  color: var(--text-body);
+  text-align: center;
+}

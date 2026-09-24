@@ -2,8 +2,12 @@
 
 import { headers } from 'next/headers';
 
+import { isOrderingOpen } from '@/lib/dates/ordering-window';
+import { pickupDayLabel } from '@/lib/dates/pickup-dates';
+
 import { getBestellen, getProductsByIds } from '../lib/content';
 import { sendEmail } from '../lib/email';
+import { decrementProductStock } from '../lib/stock';
 import { verifyTurnstile } from '../lib/turnstile';
 import type { SubmitOrderInput, SubmitOrderResult } from './order-types';
 
@@ -95,12 +99,12 @@ export async function submitOrder(
   }
 
   if (!Array.isArray(input.items) || input.items.length === 0) {
-    return { ok: false, error: 'Je winkelmandje is leeg.' };
+    return { ok: false, error: 'Je bestelling is leeg.' };
   }
   if (input.items.length > MAX_ITEMS) {
     return {
       ok: false,
-      error: 'Je winkelmandje bevat te veel verschillende producten.',
+      error: 'Je bestelling bevat te veel verschillende producten.',
     };
   }
 
@@ -128,6 +132,15 @@ export async function submitOrder(
       error: 'Online bestellen is momenteel uitgeschakeld.',
     };
   }
+  // Time window (authoritative — the client also hides ordering, but a stale
+  // page could still submit): closed weekends and Monday before 12:00.
+  if (!isOrderingOpen()) {
+    return {
+      ok: false,
+      error:
+        'Online bestellen is nu gesloten. Je kunt bestellen van maandag 12:00 tot en met vrijdag.',
+    };
+  }
   const allowedDays = settings.pickupDays.map(entry => entry.day);
   if (!allowedDays.includes(pickupDay)) {
     return { ok: false, error: 'Kies een geldige afhaaldag.' };
@@ -146,6 +159,40 @@ export async function submitOrder(
   }
   const productById = new Map(products.map(product => [product.id, product]));
 
+  // Enforce the CMS rules server-side — the client hides the order button for
+  // unavailable/sold-out products and caps quantities at the stock it knew at
+  // page load, but the server is the authority and re-checks against current
+  // stock (which may have dropped since the page was loaded).
+  for (const id of productIds) {
+    const product = productById.get(id);
+    const quantity = quantityByProductId.get(id) ?? 0;
+    if (!product || product.beschikbaar === false) {
+      return {
+        ok: false,
+        error:
+          'Sommige producten zijn niet meer beschikbaar. Ververs de pagina en probeer het opnieuw.',
+      };
+    }
+    if (typeof product.voorraad === 'number') {
+      if (product.voorraad <= 0) {
+        return {
+          ok: false,
+          error: `${product.naam} is uitverkocht. Ververs de pagina en probeer het opnieuw.`,
+        };
+      }
+      if (quantity > product.voorraad) {
+        return {
+          ok: false,
+          error: `Van ${product.naam} ${
+            product.voorraad === 1
+              ? 'is er nog maar 1'
+              : `zijn er nog maar ${product.voorraad}`
+          } beschikbaar.`,
+        };
+      }
+    }
+  }
+
   const itemLines = productIds.map(id => {
     const product = productById.get(id);
     const quantity = quantityByProductId.get(id) ?? 0;
@@ -159,7 +206,9 @@ export async function submitOrder(
     'Producten:',
     ...itemLines,
     '',
-    `Afhaaldag: ${pickupDay}`,
+    // Resolve the day name to the actual upcoming date server-side, so the
+    // bakery reads "Zaterdag 26 september", not an ambiguous "Zaterdag".
+    `Afhaaldag: ${pickupDayLabel(pickupDay, 'long')}`,
     '',
     'Klantgegevens:',
     `Naam: ${name}`,
@@ -199,6 +248,28 @@ export async function submitOrder(
     });
   } catch {
     return { ok: false, error: GENERIC_ERROR };
+  }
+
+  // The order has reached the bakery — now subtract what was ordered from each
+  // product's stock (clamped at 0). Best-effort and deliberately after the
+  // email: if this write fails the order still stands, so we log and move on
+  // rather than failing the customer over stock bookkeeping.
+  const stockUpdates = productIds
+    .map(id => {
+      const product = productById.get(id);
+      if (!product || typeof product.voorraad !== 'number') {
+        return null;
+      }
+      const quantity = quantityByProductId.get(id) ?? 0;
+      return { id, voorraad: Math.max(0, product.voorraad - quantity) };
+    })
+    .filter((update): update is { id: number; voorraad: number } => {
+      return update !== null;
+    });
+  try {
+    await decrementProductStock(stockUpdates);
+  } catch {
+    console.error('[order] Order placed but stock update failed.');
   }
 
   return { ok: true };

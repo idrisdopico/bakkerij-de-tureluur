@@ -35,7 +35,7 @@ export const Bestellen: GlobalConfig = {
       label: 'Bestellen ingeschakeld',
       admin: {
         description:
-          'Zet uit om het winkelmandje en bestelformulier tijdelijk van de site te halen.',
+          'Zet uit om de bestelling en het bestelformulier tijdelijk van de site te halen.',
       },
     },
     {

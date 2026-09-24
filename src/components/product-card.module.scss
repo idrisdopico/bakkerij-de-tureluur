@@ -58,3 +58,15 @@
   // ~4.6:1) — `--accent` itself doesn't (~2.9:1).
   color: var(--orange-700);
 }
+
+// Shown in place of the add button when a product is switched off in the CMS.
+// Matches the button's top spacing so cards with and without it stay aligned.
+.unavailable {
+  width: 100%;
+  margin-top: var(--space-3);
+  text-align: center;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  // `--text-muted` (`--ink-700`) is AAA against the white card background.
+  color: var(--text-muted);
+}

@@ -31,16 +31,16 @@ export function CartDrawer({
     <Dialog
       isOpen={isOpen}
       onClose={close}
-      label="Winkelmandje"
+      label="Bestelling"
       align="end"
       panelClassName={styles.panel}>
       <div className={styles.header}>
-        <h2 className={styles.title}>Winkelmandje</h2>
+        <h2 className={styles.title}>Bestelling</h2>
         <IconButton
           variant="ghost"
           size={40}
           onClick={close}
-          aria-label="Winkelmandje sluiten">
+          aria-label="Bestelling sluiten">
           <X aria-hidden="true" size={24} strokeWidth={1.5} />
         </IconButton>
       </div>
@@ -48,7 +48,7 @@ export function CartDrawer({
       <div className={styles.content}>
         <div className={styles.body}>
           {items.length === 0 ? (
-            <p className={styles.empty}>Je winkelmandje is nog leeg.</p>
+            <p className={styles.empty}>Je bestelling is nog leeg.</p>
           ) : (
             <ul className={styles.items}>
               {items.map(item => (
@@ -78,6 +78,7 @@ export function CartDrawer({
                       onClick={() =>
                         setQuantity(item.productId, item.quantity + 1)
                       }
+                      disabled={item.max != null && item.quantity >= item.max}
                       aria-label={`Eén meer ${item.naam}`}>
                       <Plus aria-hidden="true" size={16} strokeWidth={2} />
                     </IconButton>

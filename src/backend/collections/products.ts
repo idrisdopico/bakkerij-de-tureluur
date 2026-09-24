@@ -24,7 +24,7 @@ export const Products: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'naam',
-    defaultColumns: ['order', 'naam', 'gewicht'],
+    defaultColumns: ['order', 'naam', 'gewicht', 'beschikbaar', 'voorraad'],
   },
   // Default field to sort the admin list view by (a top-level collection
   // option, not an `admin` one).
@@ -63,6 +63,34 @@ export const Products: CollectionConfig = {
       type: 'text',
       required: true,
       label: 'Gewicht',
+    },
+    {
+      // Weekly on/off switch per product. A product is only treated as
+      // unavailable when this is explicitly `false`, so products created
+      // before this field existed (where it reads back null) stay orderable.
+      name: 'beschikbaar',
+      type: 'checkbox',
+      defaultValue: true,
+      label: 'Beschikbaar',
+      admin: {
+        description:
+          'Zet uit om dit product tijdelijk (bijvoorbeeld deze week) niet bestelbaar te maken. Het blijft zichtbaar in het assortiment, maar zonder bestelknop.',
+      },
+    },
+    {
+      // Remaining stock for the current week, set per product. The order
+      // action counts each order down against this and clamps it at 0; when it
+      // hits 0 the public site drops the order button and shows "Uitverkocht".
+      // Set weekly (every Monday) to the amount available for that week —
+      // there's no automatic reset. Left empty = no stock limit.
+      name: 'voorraad',
+      type: 'number',
+      min: 0,
+      label: 'Voorraad deze week',
+      admin: {
+        description:
+          'Aantal dat deze week nog besteld kan worden. Telt automatisch af bij elke bestelling; op 0 verdwijnt de bestelknop en toont de site "Uitverkocht". Stel dit elke maandag per product in voor de nieuwe week. Leeg laten = geen voorraadlimiet.',
+      },
     },
     {
       name: 'foto',

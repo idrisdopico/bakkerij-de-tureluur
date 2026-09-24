@@ -3,6 +3,7 @@
 import { type FormEvent, useCallback, useId, useState } from 'react';
 
 import { submitOrder } from '@/backend/actions/submit-order';
+import { pickupDayLabel } from '@/lib/dates/pickup-dates';
 
 import { Button } from '../button';
 import { useCart } from './cart-context';
@@ -58,7 +59,7 @@ export function CheckoutForm({
     setErrorMessage(null);
 
     if (items.length === 0) {
-      setErrorMessage('Je winkelmandje is leeg.');
+      setErrorMessage('Je bestelling is leeg.');
       return;
     }
     if (!turnstileToken) {
@@ -161,7 +162,9 @@ export function CheckoutForm({
                 onChange={() => setPickupDay(day)}
                 required
               />
-              <span>{day}</span>
+              {/* Value stays the bare day name (what the server validates);
+                  only the visible label gains the resolved date. */}
+              <span>{pickupDayLabel(day)}</span>
             </label>
           ))}
         </div>

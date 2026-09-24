@@ -18,9 +18,16 @@
     outline: 2px solid var(--focus-ring);
     outline-offset: 2px;
   }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
 }
 
-.ghost:hover {
+// Hover is guarded with `:not(:disabled)` so a disabled stepper (a line at its
+// per-product maximum) stays visibly inert instead of lighting up on hover.
+.ghost:not(:disabled):hover {
   background: var(--surface-sunken);
   color: var(--brand-primary);
 }
@@ -29,7 +36,7 @@
   border-color: var(--border-default);
   background: var(--surface-page);
 
-  &:hover {
+  &:not(:disabled):hover {
     border-color: var(--brand-primary);
     color: var(--brand-primary);
   }

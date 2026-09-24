@@ -26,10 +26,10 @@ export function CartButton() {
       onClick={open}
       aria-label={
         showBadge
-          ? `Winkelmandje openen — ${itemCount} ${
+          ? `Bestelling openen — ${itemCount} ${
               itemCount === 1 ? 'artikel' : 'artikelen'
             }`
-          : 'Winkelmandje openen'
+          : 'Bestelling openen'
       }>
       <ShoppingBasket aria-hidden="true" size={24} strokeWidth={1.5} />
       {showBadge && (

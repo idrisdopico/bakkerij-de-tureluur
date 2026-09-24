@@ -1,9 +1,14 @@
 import { RichText } from '@payloadcms/richtext-lexical/react';
 import { Croissant } from 'lucide-react';
 
-import { getAssortimentIntro, getProducts } from '@/backend/lib/content';
+import {
+  getAssortimentIntro,
+  getBestellen,
+  getProducts,
+} from '@/backend/lib/content';
 
 import styles from './assortiment.module.scss';
+import { OrderingClosedNotice } from './cart/ordering-closed-notice';
 import { ProductCard } from './product-card';
 import { SectionIntro } from './section-intro';
 
@@ -16,9 +21,10 @@ import { SectionIntro } from './section-intro';
  * rather than a fixed block of text.
  */
 export async function Assortiment() {
-  const [intro, products] = await Promise.all([
+  const [intro, products, bestellen] = await Promise.all([
     getAssortimentIntro(),
     getProducts(),
+    getBestellen(),
   ]);
 
   return (
@@ -42,6 +48,8 @@ export async function Assortiment() {
         </div>
 
         <h3 className={styles.overviewHeading}>{intro.overviewHeading}</h3>
+
+        <OrderingClosedNotice ordersEnabled={bestellen.ordersEnabled} />
 
         <ul className={styles.grid}>
           {products.map(product => (

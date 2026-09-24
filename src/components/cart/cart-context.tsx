@@ -7,8 +7,11 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from 'react';
+
+import { useOrderingOpen } from '@/hooks/use-ordering-open';
 
 const STORAGE_KEY = 'bakkerij-de-tureluur-cart';
 // Stored carts older than this are discarded on load, so a stale basket from
@@ -21,12 +24,16 @@ export type CartItem = {
   naam: string;
   gewicht: string;
   quantity: number;
+  /** This week's remaining stock at page load, capping the quantity that can
+   * be added; undefined = the product doesn't track stock. */
+  max?: number;
 };
 
 type AddToCartInput = {
   productId: number;
   naam: string;
   gewicht: string;
+  max?: number;
 };
 
 type StoredCart = {
@@ -41,7 +48,9 @@ type CartContextValue = {
   isOpen: boolean;
   /** False until the client has read localStorage, to avoid SSR mismatch. */
   isHydrated: boolean;
-  /** Whether ordering is switched on in the CMS — gates the entry points. */
+  /** Whether ordering is available right now — switched on in the CMS *and*
+   * inside the open window (closed weekends + Monday morning). Gates the entry
+   * points (cart button, add-to-order buttons). */
   isOrderingEnabled: boolean;
   add: (product: AddToCartInput) => void;
   setQuantity: (productId: number, quantity: number) => void;
@@ -65,6 +74,16 @@ export function CartProvider({
   const [items, setItems] = useState<CartItem[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const [isHydrated, setIsHydrated] = useState(false);
+  // The CMS master switch AND the time window must both be open. The window is
+  // evaluated live on the client (see the hook) because the page is statically
+  // rendered; the order action re-checks it server-side as the authority.
+  const isWindowOpen = useOrderingOpen();
+  const orderingAvailable = isOrderingEnabled && isWindowOpen;
+  // The drawer auto-opens only on the first add of the session, so adding
+  // more products doesn't keep popping it open; after that the visitor opens
+  // it themselves via the cart button. A ref, not state — it only gates the
+  // side effect below and never needs to trigger a re-render.
+  const hasAutoOpened = useRef(false);
 
   // Load the persisted cart once, on the client, discarding anything stale or
   // unreadable. Runs after first paint, so the server and initial client
@@ -108,6 +127,9 @@ export function CartProvider({
   }, [items, isHydrated]);
 
   const add = useCallback((product: AddToCartInput) => {
+    // The stock cap never exceeds the global safety cap. Re-store `max` on an
+    // existing line too, so a changed stock level takes effect on re-add.
+    const cap = Math.min(product.max ?? MAX_QUANTITY, MAX_QUANTITY);
     setItems(previous => {
       const existing = previous.find(
         item => item.productId === product.productId,
@@ -115,13 +137,20 @@ export function CartProvider({
       if (existing) {
         return previous.map(item =>
           item.productId === product.productId
-            ? { ...item, quantity: Math.min(item.quantity + 1, MAX_QUANTITY) }
+            ? {
+                ...item,
+                max: product.max,
+                quantity: Math.min(item.quantity + 1, cap),
+              }
             : item,
         );
       }
       return [...previous, { ...product, quantity: 1 }];
     });
-    setIsOpen(true);
+    if (!hasAutoOpened.current) {
+      hasAutoOpened.current = true;
+      setIsOpen(true);
+    }
   }, []);
 
   const setQuantity = useCallback((productId: number, quantity: number) => {
@@ -131,7 +160,14 @@ export function CartProvider({
       }
       return previous.map(item =>
         item.productId === productId
-          ? { ...item, quantity: Math.min(quantity, MAX_QUANTITY) }
+          ? {
+              ...item,
+              quantity: Math.min(
+                quantity,
+                item.max ?? MAX_QUANTITY,
+                MAX_QUANTITY,
+              ),
+            }
           : item,
       );
     });
@@ -153,7 +189,7 @@ export function CartProvider({
       itemCount,
       isOpen,
       isHydrated,
-      isOrderingEnabled,
+      isOrderingEnabled: orderingAvailable,
       add,
       setQuantity,
       remove,
@@ -166,7 +202,7 @@ export function CartProvider({
       itemCount,
       isOpen,
       isHydrated,
-      isOrderingEnabled,
+      orderingAvailable,
       add,
       setQuantity,
       remove,

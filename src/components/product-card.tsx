@@ -24,6 +24,13 @@ export type ProductCardProps = {
 export function ProductCard({ product }: ProductCardProps) {
   const photo =
     product.foto && typeof product.foto === 'object' ? product.foto : null;
+  // Two distinct off-states: the owner switched it off (`beschikbaar: false`),
+  // or this week's stock ran out (`voorraad` reached 0). Only an explicit
+  // `false`/`0` counts, so products predating these fields stay orderable.
+  const isSwitchedOff = product.beschikbaar === false;
+  const isSoldOut =
+    typeof product.voorraad === 'number' && product.voorraad <= 0;
+  const canOrder = !isSwitchedOff && !isSoldOut;
 
   return (
     <li className={styles.card}>
@@ -44,11 +51,18 @@ export function ProductCard({ product }: ProductCardProps) {
         <h4 className={styles.name}>{product.naam}</h4>
         <p className={styles.ingredients}>{product.ingr}</p>
         <p className={styles.weight}>{product.gewicht}</p>
-        <AddToCartButton
-          productId={product.id}
-          naam={product.naam}
-          gewicht={product.gewicht}
-        />
+        {canOrder ? (
+          <AddToCartButton
+            productId={product.id}
+            naam={product.naam}
+            gewicht={product.gewicht}
+            max={product.voorraad ?? undefined}
+          />
+        ) : (
+          <p className={styles.unavailable}>
+            {isSwitchedOff ? 'Tijdelijk niet beschikbaar' : 'Uitverkocht'}
+          </p>
+        )}
       </div>
     </li>
   );

@@ -197,6 +197,14 @@ export interface Product {
   ingr: string;
   gewicht: string;
   /**
+   * Zet uit om dit product tijdelijk (bijvoorbeeld deze week) niet bestelbaar te maken. Het blijft zichtbaar in het assortiment, maar zonder bestelknop.
+   */
+  beschikbaar?: boolean | null;
+  /**
+   * Aantal dat deze week nog besteld kan worden. Telt automatisch af bij elke bestelling; op 0 verdwijnt de bestelknop en toont de site "Uitverkocht". Stel dit elke maandag per product in voor de nieuwe week. Leeg laten = geen voorraadlimiet.
+   */
+  voorraad?: number | null;
+  /**
    * Optioneel — zonder foto toont de site een placeholder-icoon.
    */
   foto?: (number | null) | Media;
@@ -331,6 +339,8 @@ export interface ProductsSelect<T extends boolean = true> {
   naam?: T;
   ingr?: T;
   gewicht?: T;
+  beschikbaar?: T;
+  voorraad?: T;
   foto?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -507,7 +517,7 @@ export interface Footer {
 export interface Bestellen {
   id: number;
   /**
-   * Zet uit om het winkelmandje en bestelformulier tijdelijk van de site te halen.
+   * Zet uit om de bestelling en het bestelformulier tijdelijk van de site te halen.
    */
   ordersEnabled: boolean;
   /**
