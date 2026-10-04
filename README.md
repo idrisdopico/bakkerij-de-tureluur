@@ -4,6 +4,13 @@ Website for Bakkerij de Tureluur. A standalone Next.js (App Router) + TypeScript
 
 Visitors can also place an order: a localStorage-backed cart feeds a checkout form that emails the bakery (Cloudflare Turnstile + a honeypot guard the form; no order is stored in a database). The owner can turn ordering off and set the pickup days/policy from `/admin`. See "Ordering (cart → order email)" in `AGENTS.md`.
 
+## Documentation
+
+Topic guides live in [`docs/`](./docs/): [architecture](./docs/architecture.md),
+[backend](./docs/backend.md), [ordering](./docs/ordering.md),
+[frontend](./docs/frontend.md), and [deployment](./docs/deployment.md) (Vercel +
+CI/CD). For the exhaustive contract AI agents follow, see [`AGENTS.md`](./AGENTS.md).
+
 ## Requirements
 
 - Node >=22.18.0
@@ -50,4 +57,5 @@ Config lives at the repo root; all source lives under `src/`.
 - `src/styles/` — global styles and SCSS partials (breakpoints, mixins, design tokens)
 - `src/lib/` — framework-agnostic utilities
 - `.claude/skills/` — `code-style`, `react-conventions`, `check-accessibility`
+- `docs/` — human-facing topic guides (architecture, backend, ordering, frontend, deployment)
 - `AGENTS.md` — instructions for AI coding agents working in this repo
