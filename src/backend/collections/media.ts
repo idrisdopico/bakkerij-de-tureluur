@@ -12,6 +12,10 @@ import { isAdmin } from '../access/is-admin';
  */
 export const Media: CollectionConfig = {
   slug: 'media',
+  labels: {
+    singular: 'Afbeelding',
+    plural: 'Afbeeldingen',
+  },
   access: {
     // Public site pages need to read images unauthenticated.
     read: () => true,
@@ -27,9 +31,10 @@ export const Media: CollectionConfig = {
       name: 'alt',
       type: 'text',
       required: true,
+      label: 'Alternatieve tekst',
       admin: {
         description:
-          'Alt text for screen readers and SEO — describe what the photo shows, not just its filename.',
+          'Alt-tekst voor schermlezers en SEO — beschrijf wat er op de foto te zien is, niet alleen de bestandsnaam.',
       },
     },
   ],

@@ -14,6 +14,7 @@ import { revalidateGlobal } from '../hooks/revalidate';
  */
 export const Contact: GlobalConfig = {
   slug: 'contact',
+  label: 'Contact',
   access: {
     read: () => true,
     update: isAdmin,

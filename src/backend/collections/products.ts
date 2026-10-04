@@ -16,6 +16,10 @@ import {
  */
 export const Products: CollectionConfig = {
   slug: 'products',
+  labels: {
+    singular: 'Product',
+    plural: 'Producten',
+  },
   access: {
     read: () => true,
     create: isAdmin,

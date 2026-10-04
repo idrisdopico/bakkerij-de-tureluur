@@ -255,6 +255,8 @@ async function seed() {
       pickupDays: [{ day: 'Zaterdag' }, { day: 'Zondag' }],
       pickupPolicy:
         'Haal je bestelling vóór 13.00 uur op. Daarna kunnen we bestelde producten aan andere klanten verkopen om verspilling te voorkomen. Je ontvangt geen automatische bevestiging — we lezen elke bestelling zelf en nemen contact op als er iets onduidelijk is.',
+      closedNotice:
+        'Online bestellen is nu gesloten — bestellen kan van maandag 12:00 tot en met vrijdag. In het weekend haal je je bestelling op.',
     },
   });
 

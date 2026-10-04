@@ -11,6 +11,8 @@ export type OrderingClosedNoticeProps = {
    * window* being closed while ordering is otherwise on.
    */
   ordersEnabled: boolean;
+  /** The notice copy, editable in `/admin` (the `bestellen` global). */
+  notice: string;
 };
 
 /**
@@ -21,6 +23,7 @@ export type OrderingClosedNoticeProps = {
  */
 export function OrderingClosedNotice({
   ordersEnabled,
+  notice,
 }: OrderingClosedNoticeProps) {
   const isOpen = useOrderingOpen();
 
@@ -28,10 +31,5 @@ export function OrderingClosedNotice({
     return null;
   }
 
-  return (
-    <p className={styles.notice}>
-      Online bestellen is nu gesloten — bestellen kan van maandag 12:00 tot en
-      met vrijdag. In het weekend haal je je bestelling op.
-    </p>
-  );
+  return <p className={styles.notice}>{notice}</p>;
 }

@@ -12,6 +12,7 @@ import { revalidateGlobal } from '../hooks/revalidate';
  */
 export const Principles: GlobalConfig = {
   slug: 'principles',
+  label: 'Uitgangspunten',
   // Explicit, rather than relying on Payload's singularization of the
   // `principles` slug (which generates `Principle`) — keeps the generated
   // `payload-types.ts` name `Principles`, matching this global, its
@@ -35,6 +36,7 @@ export const Principles: GlobalConfig = {
           name: 'text',
           type: 'textarea',
           required: true,
+          label: 'Tekst',
         },
       ],
     },

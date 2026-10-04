@@ -16,6 +16,7 @@ import { revalidateGlobal } from '../hooks/revalidate';
  */
 export const Bestellen: GlobalConfig = {
   slug: 'bestellen',
+  label: 'Bestelinstellingen',
   // Explicit interface name, like the other collections/globals, so the
   // generated `payload-types.ts` name stays `Bestellen` for content.ts.
   typescript: {
@@ -65,6 +66,18 @@ export const Bestellen: GlobalConfig = {
       admin: {
         description:
           'Korte toelichting die de klant bij het bestellen ziet (bijvoorbeeld over het tijdstip van afhalen).',
+      },
+    },
+    {
+      name: 'closedNotice',
+      type: 'textarea',
+      required: true,
+      defaultValue:
+        'Online bestellen is nu gesloten — bestellen kan van maandag 12:00 tot en met vrijdag. In het weekend haal je je bestelling op.',
+      label: 'Bericht wanneer bestellen gesloten is',
+      admin: {
+        description:
+          'De tekst die in het assortiment verschijnt wanneer bestellen aanstaat maar het buiten de besteltijden valt (weekend + maandagochtend).',
       },
     },
   ],

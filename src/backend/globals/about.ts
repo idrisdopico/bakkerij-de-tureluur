@@ -12,6 +12,7 @@ import { revalidateGlobal } from '../hooks/revalidate';
  */
 export const About: GlobalConfig = {
   slug: 'about',
+  label: 'Over ons',
   access: {
     read: () => true,
     update: isAdmin,

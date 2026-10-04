@@ -12,6 +12,7 @@ import { revalidateGlobal } from '../hooks/revalidate';
  */
 export const Footer: GlobalConfig = {
   slug: 'footer',
+  label: 'Voettekst',
   access: {
     read: () => true,
     update: isAdmin,

@@ -168,7 +168,7 @@ export interface User {
 export interface Media {
   id: number;
   /**
-   * Alt text for screen readers and SEO — describe what the photo shows, not just its filename.
+   * Alt-tekst voor schermlezers en SEO — beschrijf wat er op de foto te zien is, niet alleen de bestandsnaam.
    */
   alt: string;
   updatedAt: string;
@@ -531,6 +531,10 @@ export interface Bestellen {
    * Korte toelichting die de klant bij het bestellen ziet (bijvoorbeeld over het tijdstip van afhalen).
    */
   pickupPolicy: string;
+  /**
+   * De tekst die in het assortiment verschijnt wanneer bestellen aanstaat maar het buiten de besteltijden valt (weekend + maandagochtend).
+   */
+  closedNotice: string;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -631,6 +635,7 @@ export interface BestellenSelect<T extends boolean = true> {
         id?: T;
       };
   pickupPolicy?: T;
+  closedNotice?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

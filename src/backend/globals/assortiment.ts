@@ -12,6 +12,7 @@ import { revalidateGlobal } from '../hooks/revalidate';
  */
 export const Assortiment: GlobalConfig = {
   slug: 'assortiment',
+  label: 'Assortiment (introtekst)',
   access: {
     read: () => true,
     update: isAdmin,

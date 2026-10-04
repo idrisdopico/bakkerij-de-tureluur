@@ -49,7 +49,10 @@ export async function Assortiment() {
 
         <h3 className={styles.overviewHeading}>{intro.overviewHeading}</h3>
 
-        <OrderingClosedNotice ordersEnabled={bestellen.ordersEnabled} />
+        <OrderingClosedNotice
+          ordersEnabled={bestellen.ordersEnabled}
+          notice={bestellen.closedNotice}
+        />
 
         <ul className={styles.grid}>
           {products.map(product => (

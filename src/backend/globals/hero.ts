@@ -12,6 +12,7 @@ import { revalidateGlobal } from '../hooks/revalidate';
  */
 export const Hero: GlobalConfig = {
   slug: 'hero',
+  label: 'Welkomstsectie',
   access: {
     read: () => true,
     update: isAdmin,
