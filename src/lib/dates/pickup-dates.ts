@@ -43,10 +43,7 @@ function amsterdamToday(now: Date): Date {
  * weekday, so a free-text CMS value that isn't a day (e.g. "Op afspraak") shows
  * no date rather than a wrong one.
  */
-export function nextPickupDate(
-  dayName: string,
-  now: Date = new Date(),
-): Date | null {
+function nextPickupDate(dayName: string, now: Date = new Date()): Date | null {
   const target = DUTCH_WEEKDAY_INDEX[dayName.trim().toLowerCase()];
   if (target === undefined) {
     return null;
@@ -64,10 +61,7 @@ type MonthStyle = 'short' | 'long';
  * (`long`). Reads the date back in UTC to match how `nextPickupDate` anchors
  * it, so the formatted day never drifts by one under a different runtime tz.
  */
-export function formatPickupDate(
-  date: Date,
-  month: MonthStyle = 'short',
-): string {
+function formatPickupDate(date: Date, month: MonthStyle = 'short'): string {
   return new Intl.DateTimeFormat('nl-NL', {
     timeZone: 'UTC',
     day: 'numeric',

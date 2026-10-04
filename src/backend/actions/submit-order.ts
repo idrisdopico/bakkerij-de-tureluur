@@ -65,6 +65,18 @@ export async function submitOrder(
     return { ok: false, error: GENERIC_ERROR };
   }
 
+  // Time window first — it's pure date math (no I/O), so a submission during
+  // the closed window (weekends + Monday before 12:00) is rejected before the
+  // outbound Turnstile verification rather than after it. Authoritative: the
+  // client also hides ordering, but a stale page could still submit.
+  if (!isOrderingOpen()) {
+    return {
+      ok: false,
+      error:
+        'Online bestellen is nu gesloten. Je kunt bestellen van maandag 12:00 tot en met vrijdag.',
+    };
+  }
+
   const headerList = await headers();
   const remoteIp = headerList.get('x-forwarded-for')?.split(',')[0]?.trim();
   const isHuman = await verifyTurnstile({
@@ -98,7 +110,7 @@ export async function submitOrder(
     return { ok: false, error: 'Je opmerking is te lang.' };
   }
 
-  if (!Array.isArray(input.items) || input.items.length === 0) {
+  if (input.items.length === 0) {
     return { ok: false, error: 'Je bestelling is leeg.' };
   }
   if (input.items.length > MAX_ITEMS) {
@@ -130,15 +142,6 @@ export async function submitOrder(
     return {
       ok: false,
       error: 'Online bestellen is momenteel uitgeschakeld.',
-    };
-  }
-  // Time window (authoritative — the client also hides ordering, but a stale
-  // page could still submit): closed weekends and Monday before 12:00.
-  if (!isOrderingOpen()) {
-    return {
-      ok: false,
-      error:
-        'Online bestellen is nu gesloten. Je kunt bestellen van maandag 12:00 tot en met vrijdag.',
     };
   }
   const allowedDays = settings.pickupDays.map(entry => entry.day);
