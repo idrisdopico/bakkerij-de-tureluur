@@ -1,0 +1,68 @@
+name: CI/CD
+
+# Both a pull request into main and a push to main run lint + type-check, then
+# build. The build runs ON VERCEL (not on the runner): `vercel deploy` uploads
+# the source and Vercel builds it with the project's own env. This is required
+# because the project's env vars (DATABASE_URL, PAYLOAD_SECRET, …) are stored
+# Sensitive and can't be pulled to a runner — and it's the safer design on a
+# public repo, since no secret ever reaches GitHub's infrastructure.
+#   - pull request into main → lint + type-check + a Vercel PREVIEW build (no prod change)
+#   - push to main           → lint + type-check + a Vercel PRODUCTION build & deploy
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# One run per branch at a time; a newer push supersedes an older, still-running
+# run instead of piling up.
+concurrency:
+  group: cicd-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Lint & type-check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # pnpm must be installed before setup-node so its cache can find it.
+      # The version comes from package.json's `packageManager` field.
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.18.0
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm lint
+      - run: pnpm typecheck
+
+  deploy:
+    name: Build & deploy
+    # Gate on the checks above. Build + deploy both happen inside `vercel
+    # deploy`, which fails the job if the Vercel build fails — so a broken
+    # commit never updates production.
+    needs: verify
+    runs-on: ubuntu-latest
+    # These two let the Vercel CLI resolve the project non-interactively. They
+    # are identifiers, not secrets, but live in GitHub secrets for tidiness.
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+      - name: Deploy to Vercel (build runs on Vercel with its own env)
+        run: |
+          set -euo pipefail
+          if [ "${{ github.event_name }}" = "push" ]; then
+            url=$(vercel deploy --prod --yes --token="${{ secrets.VERCEL_TOKEN }}")
+            echo "✅ Production deploy: $url"
+            echo "### Production deploy" >> "$GITHUB_STEP_SUMMARY"
+          else
+            url=$(vercel deploy --yes --token="${{ secrets.VERCEL_TOKEN }}")
+            echo "✅ Preview deploy: $url"
+            echo "### Preview deploy" >> "$GITHUB_STEP_SUMMARY"
+          fi
+          echo "$url" >> "$GITHUB_STEP_SUMMARY"

@@ -46,3 +46,4 @@ next-env.d.ts
 # claude code — per-machine settings (permissions, etc.); the shared
 # `.claude/settings.json` and `.claude/skills/` are committed, this isn't.
 .claude/settings.local.json
+.env*
