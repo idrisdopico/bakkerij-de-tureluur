@@ -4,6 +4,11 @@
   display: flex;
   align-items: flex-start;
   gap: 14px;
+  // The single source of spacing below every section's title/subtitle block.
+  // Keeping it here (rather than as a margin-top on each section's first
+  // following element) is what makes the gap identical across sections and
+  // lets those following elements carry no margin-top of their own.
+  margin-bottom: 28px;
 }
 
 .iconBadge {

@@ -37,14 +37,16 @@ export async function Assortiment() {
           subtitle="Wat we bakken"
         />
 
-        <div className={styles.intro}>
-          <h3 className={styles.subheading}>{intro.introOneHeading}</h3>
-          <RichText className={styles.copy} data={intro.introOne} />
-        </div>
+        <div className={styles.intros}>
+          <div className={styles.intro}>
+            <h3 className={styles.subheading}>{intro.introOneHeading}</h3>
+            <RichText className={styles.copy} data={intro.introOne} />
+          </div>
 
-        <div className={styles.intro}>
-          <h3 className={styles.subheading}>{intro.introTwoHeading}</h3>
-          <RichText className={styles.copy} data={intro.introTwo} />
+          <div className={styles.intro}>
+            <h3 className={styles.subheading}>{intro.introTwoHeading}</h3>
+            <RichText className={styles.copy} data={intro.introTwo} />
+          </div>
         </div>
 
         <h3 className={styles.overviewHeading}>{intro.overviewHeading}</h3>

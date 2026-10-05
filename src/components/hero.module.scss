@@ -40,7 +40,9 @@
 }
 
 .tagline {
-  margin: 0;
+  // Gap below the heading/tagline text block (same 28px as every section's
+  // intro), so the actions below carry no margin-top of their own.
+  margin: 0 0 28px;
   font-size: var(--fs-md);
   font-weight: var(--fw-medium);
   // ~6:1 against the gradient's dark end (approximated from the overlay
@@ -54,7 +56,6 @@
   display: flex;
   flex-direction: row;
   gap: 12px;
-  margin-top: 28px;
 }
 
 .action {

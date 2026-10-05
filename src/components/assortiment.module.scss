@@ -1,3 +1,5 @@
+@use '../styles/mixins' as mixins;
+
 .assortiment {
   padding: 48px 0;
   background: var(--green-100);
@@ -9,9 +11,31 @@
   padding: 0 20px;
 }
 
+// Tablet and up: the two intro blocks sit side-by-side in two columns; below
+// the tablet breakpoint they stack full width (the wrapper is a plain block).
+// The grid gap handles the spacing in that layout, and `margin-bottom` here
+// keeps the same 20px rhythm down to the "Overzicht assortiment" heading.
+.intros {
+  @include mixins.media('>=medium') {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    align-items: start;
+    margin-bottom: 20px;
+  }
+}
+
 .intro {
-  margin-top: 20px;
-  margin-bottom: 8px;
+  // Stacked (mobile): no top margin — spacing flows downward via this
+  // margin-bottom, which also separates the two blocks and the last block from
+  // the heading below.
+  margin: 0 0 20px;
+
+  // Side-by-side (tablet+): the grid gap and the wrapper's margin-bottom handle
+  // spacing, so drop the per-block margin to keep the columns level.
+  @include mixins.media('>=medium') {
+    margin: 0;
+  }
 }
 
 .subheading {
@@ -40,7 +64,9 @@
 }
 
 .overviewHeading {
-  margin: 28px 0 16px;
+  // No top margin — its gap above comes from the preceding intro block's
+  // margin-bottom; 16px below separates it from the product grid.
+  margin: 0 0 16px;
   font-family: var(--font-display);
   font-weight: var(--fw-semibold);
   font-size: var(--fs-lg);

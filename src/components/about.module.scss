@@ -1,3 +1,5 @@
+@use '../styles/mixins' as mixins;
+
 .about {
   padding: 48px 20px;
   max-width: var(--container-max);
@@ -19,6 +21,21 @@
 
     &:first-child {
       margin-top: 0;
+    }
+  }
+
+  // Tablet and up: lay the paragraphs side-by-side in two columns. Below the
+  // tablet breakpoint they stay stacked and full width. In the two-column
+  // layout the per-paragraph top margins are dropped in favour of the grid
+  // gap, so both columns start level at the top.
+  @include mixins.media('>=medium') {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    align-items: start;
+
+    p {
+      margin: 0;
     }
   }
 }

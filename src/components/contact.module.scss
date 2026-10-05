@@ -6,7 +6,9 @@
 }
 
 .copy {
-  margin: 24px 0 0;
+  // No top margin — the gap below the section intro comes from
+  // SectionIntro's margin-bottom (see section-intro.module.scss).
+  margin: 0;
   font-size: var(--fs-md);
   color: var(--text-muted);
   line-height: var(--lh-relaxed);
